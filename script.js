@@ -7,7 +7,7 @@ class Card {
       this.front = front;
     }
   }
-  
+    
   class Deck {
     constructor() {
       this.cards = [];
