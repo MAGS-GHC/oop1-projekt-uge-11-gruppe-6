@@ -150,10 +150,10 @@ class Game {
       this.war();
     }
 
-    if (this.player1.length === 0) {
+    if (this.player1.length < 3) {
       alert('Player 2 Wins!');
       location.reload();
-    } else if (this.player2.length === 0) {
+    } else if (this.player2.length < 3) {
       alert('Player 1 Wins!');
       location.reload();
     }
