@@ -14,6 +14,7 @@
 //   'king',
 //   'ace',
 // ];
+
 class Card {
   constructor(suit, rank, image) {
     this.suit = suit;
