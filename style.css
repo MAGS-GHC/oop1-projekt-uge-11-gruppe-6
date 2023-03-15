@@ -1,0 +1,79 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+}
+img {
+  max-width: 50%;
+  max-height: 50%;
+}
+#deck {
+  margin: 20px 0;
+  text-align: center;
+}
+#deck button {
+  margin: 5px;
+  padding: 10px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.war-container{
+  display: flex;
+  justify-content: space-around;
+}
+
+
+
+/* Modal */
+
+.modal-container {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.war-container {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  text-align: center;
+}
+
+.show{
+  display: block;
+
+}
+
+.player1-war-cards{
+  display: flex;
+  justify-content: space-around;
+  margin: 5%;
+
+}
+
+.player1-war-cards img{
+  max-width: 25%;
+  margin: 1%;
+
+}
+
+.player2-war-cards{
+  display: flex;
+  justify-content: space-around;
+  margin: 5%;
+}
+
+.player2-war-cards img{
+  max-width: 25%;
+  margin: 1%;
+}
