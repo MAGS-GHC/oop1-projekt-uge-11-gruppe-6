@@ -103,6 +103,7 @@ class Dealer {
   }
 
   displayPlayerAllCards(){
+    //PLAYER 1
     let rootContainer1 = document.querySelector(`.root-container1`);   
     for(let i = 0; i < this.player1.deck.cards.length; i++){
       rootContainer1.innerHTML += `
@@ -133,7 +134,7 @@ class Dealer {
       ` 
       });
     }
-
+    //PLAYER 2
     let rootContainer2 = document.querySelector(`.root-container2`); 
     for(let i = 0; i < this.player2.deck.cards.length; i++){
       rootContainer2.innerHTML += `
@@ -150,7 +151,7 @@ class Dealer {
       card[i].style.transform = "scale(1.02)";
       card[i].style.transition = "ease-in-out .2s";
       card[i].innerHTML = `
-          <img class="container-content-img" src="images/front_white.png" alt="">
+          <img class="container-content-img" src="images/front_black.png" alt="">
       ` 
       });
     }
