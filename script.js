@@ -134,7 +134,7 @@ class Game {
     for(let i = 0; i < this.player2.deck.cards.length; i++){
       rootContainer2.innerHTML += `
       <div class="container-content" id="card${i}">
-      <img class="container-content-img" src="images/front_black.png" alt="">
+      <img class="container-content-img" src="${this.player1.deck.cards[i].image}" alt="">
       </div>
       ` 
       let card = [];
