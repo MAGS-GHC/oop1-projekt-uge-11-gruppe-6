@@ -113,16 +113,6 @@ class Dealer {
       <img class="container-content-img" src="${this.player1.deck.cards[i].image}" alt="">
       </div>
       ` 
-      // cardx[x] = document.getElementById(`cardx${x}`);
-      // cardx[x].addEventListener("click", () => {
-      // console.log(`Hej ID ${x}`);
-      // cardx[x].style.transform = "scale(1.02)";
-      // cardx[x].style.transition = "ease-in-out .2s";
-      // cardx[x].innerHTML = `
-      //     <img class="container-content-img" src="images/front_white.png" alt="">
-      // ` 
-      // });
-      // console.log(cardx)
     }
     for(let i = 0; i < this.player1.deck.cards.length; i++){
       let cardx = []; 
@@ -157,29 +147,6 @@ class Dealer {
       ` 
       });
     }
-    // let rootContainer = [];
-    // for (let x = 1; x < 3; x++){
-    //   rootContainer[x] = document.querySelector(`.root-container${x}`);   
-    //   for(let i = 0; i < this.deck.length / 2; i++){
-    //       rootContainer[x].innerHTML += `
-    //       <div class="container-content" id="card${i}">
-    //           <img class="container-content-img" src="images/front_white.png" alt="">
-    //       </div>
-    //       `
-    //       let card = [];
-    //       card[i] = document.getElementById(`card${i}`);
-    //       card[i].addEventListener("click", () => {
-    //       console.log(`Hej ID ${i}`);
-    //       card[i].style.transform = "scale(1.02)";
-    //       card[i].style.transition = "ease-in-out .2s";
-    //       card[i].innerHTML = `
-    //           <img class="container-content-img" src="${this.player1.deck.cards[i].image}" alt="">
-    //       ` 
-    //       }); 
-    //   }
-    // }
-    // console.log(this.player1.deck.cards.length)
-    // console.log(this.player2.deck.cards.length)
   }
 
   playRound() {
