@@ -92,16 +92,6 @@ class Game {
     });
   }
   displayGame() {
-    // const player1CardElement = document.getElementById('player1-card');
-    // player1CardElement.setAttribute('src', this.player1.currentCard.image);
-    // const player1DeckElement = document.getElementById('player1-deck');
-    // player1DeckElement.textContent = `Cards left: ${this.player1.length + 1}`;
-
-    // const player2CardElement = document.getElementById('player2-card');
-    // player2CardElement.setAttribute('src', this.player2.currentCard.image);
-    // const player2DeckElement = document.getElementById('player2-deck');
-    // player2DeckElement.textContent = `Cards left: ${this.player2.length + 1}`;
-
     const player1CardElement = document.getElementById('player1-card');
     player1CardElement.setAttribute('src', "./images/front_white.png");
     player1CardElement.addEventListener("click", () => {
