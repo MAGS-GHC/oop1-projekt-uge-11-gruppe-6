@@ -237,6 +237,7 @@ class Game {
 
   else {
     console.log("tie")
+    setTimeout(3000)
     this.war()  
   }
 }
