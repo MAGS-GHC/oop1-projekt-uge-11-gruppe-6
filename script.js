@@ -108,10 +108,10 @@ class Game {
     const player2DeckElement = document.getElementById('player2-deck');
     player2DeckElement.textContent = `Cards left: ${this.player2.length + 1}`;
 
-    this.updatePlayerHand()
+    this.displayPlayersHands()
   }
 
-  updatePlayerHand(){
+  displayPlayersHands(){
     let rootContainer1 = document.querySelector(`.root-container1`);   
     for(let i = 0; i < this.player1.deck.cards.length; i++){
       rootContainer1.innerHTML += `
@@ -119,21 +119,31 @@ class Game {
       <img class="container-content-img" src="images/front_white.png" alt="">
       </div>
       ` 
+      // let cardleft = [];
+      // cardleft[i] = document.getElementById(`cardleft${i}`);
+      // cardleft[i].addEventListener("click", () => {
+      // console.log(`Hej ID ${i}`);
+      // cardleft[i].style.transform = "scale(1.02)";
+      // cardleft[i].style.transition = "ease-in-out .2s";
+      // cardleft[i].innerHTML = `
+      //     <img class="container-content-img" src="${this.player1.deck.cards[i].image}" alt="">
+      // ` 
+      // });
     }
     let rootContainer2 = document.querySelector(`.root-container2`);   
     for(let i = 0; i < this.player2.deck.cards.length; i++){
       rootContainer2.innerHTML += `
-      <div class="container-content" id="card${i}">
+      <div class="container-content" id="cardright${i}">
       <img class="container-content-img" src="images/front_black.png" alt="">
       </div>
       ` 
-      let card = [];
-      card[i] = document.getElementById(`card${i}`);
-      card[i].addEventListener("click", () => {
+      let cardright = [];
+      cardright[i] = document.getElementById(`cardright${i}`);
+      cardright[i].addEventListener("click", () => {
       console.log(`Hej ID ${i}`);
-      card[i].style.transform = "scale(1.02)";
-      card[i].style.transition = "ease-in-out .2s";
-      card[i].innerHTML = `
+      cardright[i].style.transform = "scale(1.02)";
+      cardright[i].style.transition = "ease-in-out .2s";
+      cardright[i].innerHTML = `
           <img class="container-content-img" src="${this.player1.deck.cards[i].image}" alt="">
       ` 
       });
@@ -141,12 +151,22 @@ class Game {
     // let rootContainer = [];
     // for (let x = 1; x < 3; x++){
     //   rootContainer[x] = document.querySelector(`.root-container${x}`);   
-    //   for(let i = 0; i < this.player1.deck.cards.length; i++){
+    //   for(let i = 0; i < this.deck.length / 2; i++){
     //       rootContainer[x].innerHTML += `
     //       <div class="container-content" id="card${i}">
     //           <img class="container-content-img" src="images/front_white.png" alt="">
     //       </div>
+    //       `
+    //       let card = [];
+    //       card[i] = document.getElementById(`card${i}`);
+    //       card[i].addEventListener("click", () => {
+    //       console.log(`Hej ID ${i}`);
+    //       card[i].style.transform = "scale(1.02)";
+    //       card[i].style.transition = "ease-in-out .2s";
+    //       card[i].innerHTML = `
+    //           <img class="container-content-img" src="${this.player1.deck.cards[i].image}" alt="">
     //       ` 
+    //       }); 
     //   }
     // }
     // console.log(this.player1.deck.cards.length)
