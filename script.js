@@ -73,7 +73,7 @@ class Player {
   }
 
   addCards(cards) {
-    this.deck.cards.unshift(...cards);
+    this.deck.cards.push(...cards); 
   }
 
   get length() {
