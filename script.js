@@ -73,7 +73,7 @@ class Player {
   }
 
   addCards(cards) {
-    this.deck.cards.push(...cards); 
+    this.deck.cards.unshift(...cards); 
   }
 
   get length() {
@@ -165,19 +165,14 @@ class Game {
     );
 
     if (player1Rank > player2Rank) {
-      // this.player1.addCards([
-      //   ...player1Cards,
-      //   ...player2Cards,
-      //   player1Cards,
-      //   player2Cards,
-      // ]);
+      
+      this.player1.addCards([...player2Cards, ...player1Cards]);
+      console.log(...player2Cards, ...player1Cards);
     } else if (player2Rank > player1Rank) {
-      // this.player2.addCards([
-      //   ...player1Cards,
-      //   ...player2Cards,
-      //   player1Cards,
-      //   player2Cards,
-      // ]);
+      
+      this.player2.addCards([...player1Cards, ...player2Cards]);
+      console.log(...player1Cards, ...player2Cards);
+      
     } else {
       this.war();
     }
