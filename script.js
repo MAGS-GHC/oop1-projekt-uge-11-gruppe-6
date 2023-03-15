@@ -56,6 +56,16 @@ class Deck {
       [this.cards[i], this.cards[j]] = [this.cards[j], this.cards[i]]; // es6 swap
     }
   }
+  
+   dealHalf() {
+    const half = Math.ceil(this.cards.length / 2);
+    const deck1Cards = this.cards.slice(0, half);
+    const deck2Cards = this.cards.slice(half);
+    this.player1Deck = new Deck();
+    this.player2Deck = new Deck();
+    this.player1Deck.cards = deck1Cards;
+    this.player2Deck.cards = deck2Cards;
+  }
 
   dealCard() {
     return this.cards.pop();
@@ -88,25 +98,14 @@ class Player {
 
 class Game {
   constructor() {
-    // this.deck = new Deck();
-    // this.deck.shuffle();
-    // const [player1Cards, player2Cards] = this.deck.dealHalf();
-    // this.player1 = new Player('Player 1', new Deck(player1Cards));
-    // this.player2 = new Player('Player 2', new Deck(player2Cards));
-
     this.deck = new Deck();
     this.deck.shuffle();
-
     this.player1 = new Player('Player 1', new Deck());
     this.player2 = new Player('Player 2', new Deck());
-
-    for (let i = 0; i < this.deck.length; i++) {
-      if (i % 2 === 0) {
-        this.player1.deck.cards.push(this.deck.cards[i]);
-      } else {
-        this.player2.deck.cards.push(this.deck.cards[i]);
-      }
-    }
+    this.deck.dealHalf();
+    this.player1.deck = this.deck.player1Deck;
+    this.player2.deck = this.deck.player2Deck;
+    console.log(this.deck.length);
   }
   start() {
     let buttonStart = document.querySelector('.play-button');
