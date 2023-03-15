@@ -8,20 +8,33 @@
     <title>Krig</title>
   </head>
   <body>
-    <h1>War</h1>
+    <h1 class="headline">War</h1>
     <div class="container">
       <div>
-        <h2>Player 1</h2>
+        <h2 class="headline">Player 1</h2>
         <img id="player1-card" />
         <p id="player1-deck"></p>
       </div>
       <div>
-        <h2>Player 2</h2>
+        <h2 class="headline">Player 2</h2>
         <img id="player2-card" />
         <p id="player2-deck"></p>
       </div>
     </div>
     <button class="play-button">Play Round</button>
+
+    <hr>
+    <div class="player-container">
+        <div>
+            <h2 class="player-headline">Hand received by Player One</h2>
+            <div class="root-container1"></div>
+        </div>
+        <hr>
+        <div>
+            <h2 class="player-headline">Hand received by Player Two</h2>
+            <div class="root-container2"></div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
   </body>
