@@ -22,6 +22,7 @@ class Deck {
   }
   //+?+//
   shuffle() {
+    //--Deck does not shuffle, Dealer shuffles etc.--//
     for (let i = this.cards.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [this.cards[i], this.cards[j]] = [this.cards[j], this.cards[i]]; // es6 swap
@@ -33,6 +34,7 @@ class Deck {
   }
   //+?+//
   dealHalf() {
+    //--Deck does not cut, Dealer cuts--//
     const half = Math.ceil(this.cards.length / 2);
     const deck1Cards = this.cards.slice(0, half);
     const deck2Cards = this.cards.slice(half);
