@@ -5,7 +5,7 @@ class Card {
     this.rank = rank;
     this.image = image;
     this.id = id;
-
+    this.value = [];
   }
 }
 class Deck {
@@ -22,10 +22,25 @@ class Deck {
       '8',
       '9',
       '10',
-      'jack',
-      'queen',
+      'jack' || 11,
+      'queen' || 12,
       'king',
       'ace',
+    ];
+    this.value = [
+      '2',
+      '3',
+      '4',
+      '5',
+      '6',
+      '7',
+      '8',
+      '9',
+      '10',
+      '11',
+      '12',
+      '13',
+      '14',
     ];
     for (let suit of this.suits) {
       for (let rank of this.ranks) {
