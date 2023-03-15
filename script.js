@@ -34,7 +34,6 @@ class Deck {
       }
     }
   }
-
   shuffle() {
     for (let i = this.cards.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -54,12 +53,9 @@ class Deck {
     this.player2Deck.cards = deck2Cards;
     console.log(deck1Cards)
   }
-
   dealCard() {
     return this.cards.pop();
   }
-
-
 }
 
 class Player {
@@ -121,8 +117,6 @@ class Game {
     });
     const player2DeckElement = document.getElementById('player2-deck');
     player2DeckElement.textContent = `Cards left: ${this.player2.length + 1}`;
-    
-    console.log(this.player1.currentCard.image)
 
     // let rootContainer = [];
     // for (let x = 1; x < 3; x++){
@@ -159,7 +153,6 @@ class Game {
       console.log(`Hej ID ${i}`);
       card[i].style.transform = "scale(1.05)";
       card[i].style.transition = "ease-in-out .3s";
-      //card[i].style.cursor = "grab";
       card[i].innerHTML = `
           <img class="container-content-img" src="${this.player1.deck.cards[i].image}" alt="">
       ` 
