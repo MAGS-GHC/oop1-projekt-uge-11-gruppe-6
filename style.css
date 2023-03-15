@@ -67,7 +67,7 @@ body{
 .root-container1 > div{
     border-radius: 20px;
     margin: .5rem;
-    margin-right: -2rem;
+    margin-right: -1rem;
     flex-wrap: wrap;
     justify-content: center;
 }
@@ -86,7 +86,7 @@ body{
 .root-container2 > div{
     border-radius: 20px;
     margin: .5rem;
-    margin-right: -2rem;
+    margin-right: -1rem;
     flex-wrap: wrap;
     justify-content: center;
     width: 4rem;

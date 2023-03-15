@@ -108,6 +108,36 @@ class Game {
     const player2DeckElement = document.getElementById('player2-deck');
     player2DeckElement.textContent = `Cards left: ${this.player2.length + 1}`;
 
+    this.updatePlayerHand()
+  }
+
+  updatePlayerHand(){
+    let rootContainer1 = document.querySelector(`.root-container1`);   
+    for(let i = 0; i < this.player1.deck.cards.length; i++){
+      rootContainer1.innerHTML += `
+      <div class="container-content" id="card${i}">
+      <img class="container-content-img" src="images/front_white.png" alt="">
+      </div>
+      ` 
+    }
+    let rootContainer2 = document.querySelector(`.root-container2`);   
+    for(let i = 0; i < this.player2.deck.cards.length; i++){
+      rootContainer2.innerHTML += `
+      <div class="container-content" id="card${i}">
+      <img class="container-content-img" src="images/front_black.png" alt="">
+      </div>
+      ` 
+      let card = [];
+      card[i] = document.getElementById(`card${i}`);
+      card[i].addEventListener("click", () => {
+      console.log(`Hej ID ${i}`);
+      card[i].style.transform = "scale(1.02)";
+      card[i].style.transition = "ease-in-out .2s";
+      card[i].innerHTML = `
+          <img class="container-content-img" src="${this.player1.deck.cards[i].image}" alt="">
+      ` 
+      });
+    }
     // let rootContainer = [];
     // for (let x = 1; x < 3; x++){
     //   rootContainer[x] = document.querySelector(`.root-container${x}`);   
@@ -121,33 +151,6 @@ class Game {
     // }
     // console.log(this.player1.deck.cards.length)
     // console.log(this.player2.deck.cards.length)
-
-    let rootContainer1 = document.querySelector(`.root-container1`);   
-    for(let i = 0; i < this.player1.deck.cards.length; i++){
-      rootContainer1.innerHTML += `
-      <div class="container-content" id="card${i}">
-      <img class="container-content-img" src="images/front_white.png" alt="">
-      </div>
-      ` 
-    }
-    let rootContainer2 = document.querySelector(`.root-container2`);   
-    for(let i = 0; i < this.player2.deck.cards.length; i++){
-      rootContainer2.innerHTML += `
-      <div class="container-content" id="card${i}">
-      <img class="container-content-img" src="${this.player1.deck.cards[i].image}" alt="">
-      </div>
-      ` 
-      let card = [];
-      card[i] = document.getElementById(`card${i}`);
-      card[i].addEventListener("click", () => {
-      console.log(`Hej ID ${i}`);
-      card[i].style.transform = "scale(1.05)";
-      card[i].style.transition = "ease-in-out .3s";
-      card[i].innerHTML = `
-          <img class="container-content-img" src="${this.player1.deck.cards[i].image}" alt="">
-      ` 
-      });
-    }
   }
 
   playRound() {
