@@ -166,8 +166,8 @@ class Game {
     const player1Cards = [this.player1.currentCard];
     const player2Cards = [this.player2.currentCard];
     
-console.log(this.player1.currentCard)
-    
+    console.log(this.player1.currentCard)
+
     modalContainer.classList.add("show")
 
     console.log(warBTN)
@@ -186,7 +186,7 @@ console.log(this.player1.currentCard)
       player1Write.innerHTML += `<img class="warCards" src="${card.image}"> `
     }
 
-    
+
     console.log(`Player 2 cards:`);
     for (let card of player2Cards) {
       console.log(`${card.rank} of ${card.suit} (${card.image})`);
