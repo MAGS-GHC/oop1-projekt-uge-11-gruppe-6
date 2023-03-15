@@ -49,10 +49,11 @@ img {
   text-align: center;
 }
 
-.show{
-  display: block;
-
+.war-card-container{
+  display: none;
 }
+
+
 
 .player1-war-cards{
   display: flex;
@@ -77,3 +78,72 @@ img {
   max-width: 25%;
   margin: 1%;
 }
+
+.right-icon{
+  transform: rotate(315deg);
+  width: 45%;
+  animation: swordSwingLeft 3s  forwards;
+  color: #2E3D4D;
+
+
+}
+
+.left-icon{
+  transform: rotate(315deg);
+  width: 45%;
+  animation: swordSwingRight 3s  forwards;
+  color: #4D2E3D;
+}
+
+.show{
+  display: block;
+  animation: fadeIn 0.3s ease-in forwards;
+
+}
+
+.hidden{
+  display: none;
+}
+
+
+@keyframes swordSwingRight {
+  from{
+      transform: rotate(315deg);
+  }
+
+  50%{
+      transform: rotate(360deg);
+  }
+
+  to{
+      transform: rotate(0deg);
+  }
+}
+
+@keyframes swordSwingLeft {
+  from{
+      transform: rotate(315deg);
+  }
+
+  50%{
+      transform: rotate(360deg);
+  }
+
+  100%{
+      transform: rotate(270deg);
+  }
+}
+
+ @keyframes fadeIn{
+  from{
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+
+  to{
+    
+    transform: translateY(-0px);
+    opacity: 1;
+
+  }
+ }

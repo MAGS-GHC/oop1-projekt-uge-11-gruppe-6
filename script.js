@@ -156,6 +156,8 @@ class Game {
   war() {
     const warContainer = document.querySelector(".war-container")
     const modalContainer = document.querySelector(".modal-container")
+    const modalLoader = document.querySelector(".loader-container")
+    const warCardContainer = document.querySelector(".war-card-container")
 
     const player1Write = document.querySelector(".player1-war-cards")
     const player2Write = document.querySelector(".player2-war-cards")
@@ -166,11 +168,17 @@ class Game {
     const player1Cards = [this.player1.currentCard];
     const player2Cards = [this.player2.currentCard];
     
-    console.log(this.player1.currentCard)
-
     modalContainer.classList.add("show")
+  
+    setTimeout(function() {
+      modalLoader.classList.add("hidden");
+      warCardContainer.classList.add("show")
+    }, 4000);
 
-    console.log(warBTN)
+
+
+
+
 
     // draw 3 cards
 
@@ -213,6 +221,8 @@ class Game {
       player2Write.innerHTML = "";
       player1Write.innerHTML = "";
       modalContainer.classList.remove("show");
+      modalLoader.classList.remove("hidden");
+      warCardContainer.classList.remove("show")
     })
   } 
   
@@ -232,6 +242,8 @@ class Game {
       player2Write.innerHTML = "";
       player1Write.innerHTML = "";
       modalContainer.classList.remove("show");
+      modalLoader.classList.remove("hidden");
+      warCardContainer.classList.remove("show")
     })
   }
 
