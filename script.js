@@ -151,14 +151,14 @@ class Game {
     const player2Write = document.querySelector(".player2-war-cards")
 
 
-    const warBTN = document.querySelector(".warBTN")
+    const warBTN = document.querySelector(".test")
 
     const player1Cards = [this.player1.currentCard];
     const player2Cards = [this.player2.currentCard];
     
     modalContainer.classList.add("show")
 
-
+    console.log(warBTN)
 
     // draw 3 cards
 
@@ -184,6 +184,10 @@ class Game {
       player2Write.innerHTML += `<img class="warCards" src="${card.image}"> `
 
     }
+
+    
+
+  
 
   const player1LastCard = parseInt(player1Cards[player1Cards.length - 1].rank);
   const player2LastCard = parseInt(player2Cards[player2Cards.length - 1].rank);
@@ -212,10 +216,11 @@ class Game {
   }
   
   else {
-
-    
+    console.log("tie")
+    this.war()  
   }
 
+  console.log(warBTN)
 
   
 }
