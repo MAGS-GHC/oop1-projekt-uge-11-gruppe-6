@@ -1,13 +1,12 @@
 
 class Card {
-  constructor(suit, rank, image, id) {
+  constructor(suit, rank, image) {
     this.suit = suit;
     this.rank = rank;
     this.image = image;
-    this.id = id;
-    this.value = [];
   }
 }
+
 class Deck {
   constructor() {
     this.cards = [];
@@ -22,25 +21,10 @@ class Deck {
       '8',
       '9',
       '10',
-      'jack' || 11,
-      'queen' || 12,
+      'jack',
+      'queen',
       'king',
       'ace',
-    ];
-    this.value = [
-      '2',
-      '3',
-      '4',
-      '5',
-      '6',
-      '7',
-      '8',
-      '9',
-      '10',
-      '11',
-      '12',
-      '13',
-      '14',
     ];
     for (let suit of this.suits) {
       for (let rank of this.ranks) {
@@ -49,21 +33,29 @@ class Deck {
         this.cards.push(new Card(suit, rank, image));
       }
     }
-    //console.log(this.cards)
   }
-  // shuffle() {
-  //   for (let i = this.cards.length - 1; i > 0; i--) {
-  //     const j = Math.floor(Math.random() * (i + 1));
-  //     [this.cards[i], this.cards[j]] = [this.cards[j], this.cards[i]]; // es6 swap
-  //   }
-  // }
+
+  shuffle() {
+    for (let i = this.cards.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [this.cards[i], this.cards[j]] = [this.cards[j], this.cards[i]]; // es6 swap
+    }
+  }
+  
+   dealHalf() {
+    const half = Math.ceil(this.cards.length / 2);
+    const deck1Cards = this.cards.slice(0, half);
+    const deck2Cards = this.cards.slice(half);
+    this.player1Deck = new Deck();
+    this.player2Deck = new Deck();
+    this.player1Deck.cards = deck1Cards;
+    this.player2Deck.cards = deck2Cards;
+  }
+
   dealCard() {
     return this.cards.pop();
   }
 
-  // get length() {
-  //   return this.cards.length;
-  // }
   get length() {
     return this.cards.length;
   }
@@ -91,58 +83,15 @@ class Player {
 
 class Game {
   constructor() {
-    // this.deck = new Deck();
-    // this.deck.shuffle();
-    // const [player1Cards, player2Cards] = this.deck.dealHalf();
-    // this.player1 = new Player('Player 1', new Deck(player1Cards));
-    // this.player2 = new Player('Player 2', new Deck(player2Cards));
-
     this.deck = new Deck();
-    //this.deck.shuffle();
-    // this.shuffleAndSplitDeck()
-
-    let shuffledDeck = [];
-    shuffledDeck = this.deck.cards.sort(() => 0.5 - Math.random());
-
-    let deckSplit1 = [];
-    deckSplit1 = shuffledDeck.slice(0, 26); 
-
-    let deckSplit2 = [];
-    deckSplit2 = shuffledDeck.slice(26, 52); 
-
-    console.log(shuffledDeck)
-    console.log(deckSplit1)
-    console.log(deckSplit2)
-
+    this.deck.shuffle();
     this.player1 = new Player('Player 1', new Deck());
     this.player2 = new Player('Player 2', new Deck());
-
-    // for (let i = 0; i < this.deck.length; i++) { 
-    //   if (i % 2 === 0) {
-    //     this.player1.deck.cards.push(this.deck.cards[i]);
-    //   } else {
-    //     this.player2.deck.cards.push(this.deck.cards[i]);
-    //   }
-    // }
-    // console.log(this.player1.deck.cards)
-    // console.log(this.player2.deck.cards)
-    console.log(this.deck)
-    console.log(this.player1)
-    console.log(this.player2)
+    this.deck.dealHalf();
+    this.player1.deck = this.deck.player1Deck;
+    this.player2.deck = this.deck.player2Deck;
+    console.log(this.deck.length);
   }
-  // handPlayerOne(input){
-  //   let rootContainer1 = document.querySelector(".root-container1");   
-  //   for(let i = 0; i < input.length; i++){
-  //       rootContainer1.innerHTML += `
-  //       <div class="container-content" id="card${i}">
-  //           <img class="container-content-img" src="images/${input[i].front}" alt="">
-  //       </div>
-  //       ` 
-  //   }
-  //   console.log(input)
-  // }
-
-
   start() {
     let buttonStart = document.querySelector('.play-button');
     buttonStart.addEventListener('click', () => {
@@ -153,12 +102,12 @@ class Game {
     const player1CardElement = document.getElementById('player1-card');
     player1CardElement.setAttribute('src', this.player1.currentCard.image);
     const player1DeckElement = document.getElementById('player1-deck');
-    player1DeckElement.textContent = `Cards left: ${this.player1.length}`;
+    player1DeckElement.textContent = `Cards left: ${this.player1.length + 1}`;
 
     const player2CardElement = document.getElementById('player2-card');
     player2CardElement.setAttribute('src', this.player2.currentCard.image);
     const player2DeckElement = document.getElementById('player2-deck');
-    player2DeckElement.textContent = `Cards left: ${this.player2.length}`;
+    player2DeckElement.textContent = `Cards left: ${this.player2.length + 1}`;
   }
 
   playRound() {
@@ -185,15 +134,16 @@ class Game {
       this.war();
     }
 
-    if (this.player1.length === 0) {
+    if (this.player1.length < 3) {
       alert('Player 2 Wins!');
       location.reload();
-    } else if (this.player2.length === 0) {
+    } else if (this.player2.length < 3) {
       alert('Player 1 Wins!');
       location.reload();
     }
     // });
   }
+
   // mangler war method
   war() {
     const player1Cards = [this.player1.currentCard];
@@ -207,30 +157,30 @@ class Game {
     }
 
     // check the last card
-    // const player1Rank = this.deck.ranks.indexOf(
-    //   player1Cards[player1Cards.length - 1].rank
-    // );
-    // const player2Rank = this.deck.ranks.indexOf(
-    //   player2Cards[player2Cards.length - 1].rank
-    // );
+    const player1Rank = this.deck.ranks.indexOf(
+      player1Cards[player1Cards.length - 1].rank
+    );
+    const player2Rank = this.deck.ranks.indexOf(
+      player2Cards[player2Cards.length - 1].rank
+    );
 
-    // if (player1Rank > player2Rank) {
-    //   // this.player1.addCards([
-    //   //   ...player1Cards,
-    //   //   ...player2Cards,
-    //   //   player1Cards,
-    //   //   player2Cards,
-    //   // ]);
-    // } else if (player2Rank > player1Rank) {
-    //   // this.player2.addCards([
-    //   //   ...player1Cards,
-    //   //   ...player2Cards,
-    //   //   player1Cards,
-    //   //   player2Cards,
-    //   // ]);
-    // } else {
-    //   this.war();
-    // }
+    if (player1Rank > player2Rank) {
+      // this.player1.addCards([
+      //   ...player1Cards,
+      //   ...player2Cards,
+      //   player1Cards,
+      //   player2Cards,
+      // ]);
+    } else if (player2Rank > player1Rank) {
+      // this.player2.addCards([
+      //   ...player1Cards,
+      //   ...player2Cards,
+      //   player1Cards,
+      //   player2Cards,
+      // ]);
+    } else {
+      this.war();
+    }
   }
 }
 
