@@ -1,18 +1,119 @@
+@import url('https://fonts.googleapis.com/css2?family=Paytone+One&display=swap');
+
 .container {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
 img {
-  max-width: 50%;
-  max-height: 50%;
+  max-width: 7rem;
+  /* max-height: 50%; */
 }
 #deck {
   margin: 20px 0;
   text-align: center;
 }
-#deck button {
+.play-button,
+.new-button {
   margin: 5px;
   padding: 10px;
   font-size: 20px;
   font-weight: bold;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  font-family: 'Paytone One', sans-serif;
+  border-radius: 1rem;
+}
+
+/* style */
+
+body {
+  font-family: 'Paytone One', sans-serif;
+  background-color: #2e4d3e;
+}
+.headline {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  font-size: 2rem;
+}
+.root-container {
+  margin: 5rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.root-container > div {
+  border-radius: 20px;
+  margin: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.root-container > div:hover {
+  /* transform: scale(1.05);
+    transition: ease-in-out 1s; */
+  cursor: pointer;
+}
+.container-content-img {
+  width: 4rem;
+}
+/* PLAYER ONE */
+.root-container1 {
+  margin: 5rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.root-container1 > div {
+  border-radius: 20px;
+  margin: 0.5rem;
+  margin-right: -2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.root-container1 > div:hover {
+  /* transform: scale(1.05);
+    transition: ease-in-out 1s; */
+  cursor: pointer;
+}
+/* PLAYER TWO */
+.root-container2 {
+  margin: 5rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.root-container2 > div {
+  border-radius: 20px;
+  margin: 0.5rem;
+  margin-right: -2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 4rem;
+}
+.root-container2 > div:hover {
+  /* transform: scale(1.05);
+    transition: ease-in-out 1s; */
+  cursor: pointer;
+}
+
+.player-headline {
+  font-size: 2rem;
+  justify-content: center;
+  display: flex;
+  margin: 0 auto;
+  text-align: center;
+}
+.player-container {
+  display: flex;
+}
+.player-container > div {
+  flex-wrap: wrap;
+  justify-content: center;
+}
+#target {
+  border: 2px dotted black;
+  width: 64px;
+  height: 96px;
+  margin: 0 auto;
 }
