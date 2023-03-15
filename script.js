@@ -11,38 +11,27 @@ class Deck {
   constructor() {
     this.cards = [];
     this.suits = ['hearts', 'diamonds', 'clubs', 'spades'];
-    this.ranks = [
-      '2',
-      '3',
-      '4',
-      '5',
-      '6',
-      '7',
-      '8',
-      '9',
-      '10',
-      'jack',
-      'queen',
-      'king',
-      'ace',
-    ];
+    this.ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'jack', 'queen', 'king', 'ace'];
     for (let suit of this.suits) {
       for (let rank of this.ranks) {
-        // image file name
         let image = `./images/${rank}_of_${suit}.png`;
         this.cards.push(new Card(suit, rank, image));
       }
     }
+    //+Unique cards+//
   }
+  //+?+//
   shuffle() {
     for (let i = this.cards.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [this.cards[i], this.cards[j]] = [this.cards[j], this.cards[i]]; // es6 swap
     }
   }
+  //+?+//
   get length() {
     return this.cards.length;
   }
+  //+?+//
   dealHalf() {
     const half = Math.ceil(this.cards.length / 2);
     const deck1Cards = this.cards.slice(0, half);
@@ -53,6 +42,7 @@ class Deck {
     this.player2Deck.cards = deck2Cards;
     console.log(deck1Cards)
   }
+  //--Deck does not deal, Dealer deals--//
   dealCard() {
     return this.cards.pop();
   }
@@ -70,12 +60,13 @@ class Player {
   addCards(cards) {
     this.deck.cards.unshift(...cards);
   }
+  //+?+//
   get length() {
     return this.deck.length;
   }
 }
 
-class Game {
+class Dealer {
   constructor() {
     this.deck = new Deck();
     this.deck.shuffle();
@@ -91,60 +82,75 @@ class Game {
       this.playRound();
     });
   }
-  displayGame() {
+  displayHands() {
     const player1CardElement = document.getElementById('player1-card');
-    player1CardElement.setAttribute('src', "./images/front_white.png");
+    player1CardElement.setAttribute('src', this.player1.currentCard.image);
     player1CardElement.addEventListener("click", () => {
-      player1CardElement.setAttribute('src', this.player1.currentCard.image);
+      player1CardElement.setAttribute('src', "./images/front_white.png");
     });
     const player1DeckElement = document.getElementById('player1-deck');
     player1DeckElement.textContent = `Cards left: ${this.player1.length + 1}`;
 
     const player2CardElement = document.getElementById('player2-card');
-    player2CardElement.setAttribute('src', "./images/front_black.png");
+    player2CardElement.setAttribute('src', this.player2.currentCard.image);
     player2CardElement.addEventListener("click", () => {
-      player2CardElement.setAttribute('src', this.player2.currentCard.image);
+      player2CardElement.setAttribute('src', "./images/front_black.png");
     });
     const player2DeckElement = document.getElementById('player2-deck');
     player2DeckElement.textContent = `Cards left: ${this.player2.length + 1}`;
 
-    this.displayPlayersHands()
+    this.displayPlayerAllCards()
   }
 
-  displayPlayersHands(){
+  displayPlayerAllCards(){
     let rootContainer1 = document.querySelector(`.root-container1`);   
     for(let i = 0; i < this.player1.deck.cards.length; i++){
       rootContainer1.innerHTML += `
-      <div class="container-content" id="card${i}">
-      <img class="container-content-img" src="images/front_white.png" alt="">
+      <div class="container-content" id="cardx${i}">
+      <img class="container-content-img" src="${this.player1.deck.cards[i].image}" alt="">
       </div>
       ` 
-      // let cardleft = [];
-      // cardleft[i] = document.getElementById(`cardleft${i}`);
-      // cardleft[i].addEventListener("click", () => {
-      // console.log(`Hej ID ${i}`);
-      // cardleft[i].style.transform = "scale(1.02)";
-      // cardleft[i].style.transition = "ease-in-out .2s";
-      // cardleft[i].innerHTML = `
-      //     <img class="container-content-img" src="${this.player1.deck.cards[i].image}" alt="">
+      // cardx[x] = document.getElementById(`cardx${x}`);
+      // cardx[x].addEventListener("click", () => {
+      // console.log(`Hej ID ${x}`);
+      // cardx[x].style.transform = "scale(1.02)";
+      // cardx[x].style.transition = "ease-in-out .2s";
+      // cardx[x].innerHTML = `
+      //     <img class="container-content-img" src="images/front_white.png" alt="">
       // ` 
       // });
+      // console.log(cardx)
     }
-    let rootContainer2 = document.querySelector(`.root-container2`);   
+    for(let i = 0; i < this.player1.deck.cards.length; i++){
+      let cardx = []; 
+      cardx[i] = document.getElementById(`cardx${i}`);
+      cardx[i].addEventListener("click", () => {
+      console.log(`Irriterende for(){addEvL(i, ()=> {});} IDx: ${i}`);
+      cardx[i].style.transform = "scale(1.02)";
+      cardx[i].style.transition = "ease-in-out .2s";
+      cardx[i].innerHTML = `
+          <img class="container-content-img" src="images/front_white.png" alt="">
+      ` 
+      });
+    }
+
+    let rootContainer2 = document.querySelector(`.root-container2`); 
     for(let i = 0; i < this.player2.deck.cards.length; i++){
       rootContainer2.innerHTML += `
-      <div class="container-content" id="cardright${i}">
-      <img class="container-content-img" src="images/front_black.png" alt="">
+      <div class="container-content" id="card${i}">
+      <img class="container-content-img" src="${this.player2.deck.cards[i].image}" alt="">
       </div>
       ` 
-      let cardright = [];
-      cardright[i] = document.getElementById(`cardright${i}`);
-      cardright[i].addEventListener("click", () => {
-      console.log(`Hej ID ${i}`);
-      cardright[i].style.transform = "scale(1.02)";
-      cardright[i].style.transition = "ease-in-out .2s";
-      cardright[i].innerHTML = `
-          <img class="container-content-img" src="${this.player1.deck.cards[i].image}" alt="">
+    }
+    for(let i = 0; i < this.player2.deck.cards.length; i++){
+      let card = []; 
+      card[i] = document.getElementById(`card${i}`);
+      card[i].addEventListener("click", () => {
+      console.log(`Irriterende for(){addEvL(i, ()=> {});} ID: ${i}`);
+      card[i].style.transform = "scale(1.02)";
+      card[i].style.transition = "ease-in-out .2s";
+      card[i].innerHTML = `
+          <img class="container-content-img" src="images/front_white.png" alt="">
       ` 
       });
     }
@@ -176,11 +182,10 @@ class Game {
   playRound() {
     document.querySelector(".root-container1").innerHTML = "";
     document.querySelector(".root-container2").innerHTML = "";
-    // let buttonStart = document.querySelector('.play-button');
-    // buttonStart.addEventListener('click', () => {
+
     this.player1.drawCard();
     this.player2.drawCard();
-    this.displayGame();
+    this.displayHands();
 
     const player1Rank = this.deck.ranks.indexOf(this.player1.currentCard.rank);
     const player2Rank = this.deck.ranks.indexOf(this.player2.currentCard.rank);
@@ -198,30 +203,29 @@ class Game {
     } else {
       this.war();
     }
-
     if (this.player1.length < 3) {
+      //--AlERT--, ++HTML notification++//
       alert('Player 2 Wins!');
+            //--reload()--//
       location.reload();
     } else if (this.player2.length < 3) {
+       //--AlERT--, ++HTML notification++//
       alert('Player 1 Wins!');
+      //--reload()--//
       location.reload();
     }
-    // });
   }
 
-  // mangler war method
   war() {
+    //++More methods in war++//
     const player1Cards = [this.player1.currentCard];
     const player2Cards = [this.player2.currentCard];
-
-    // draw 3 cards
 
     for (let i = 0; i < 3; i++) {
       player1Cards.push(this.player1.deck.dealCard());
       player2Cards.push(this.player2.deck.dealCard());
     }
 
-    // check the last card
     const player1Rank = this.deck.ranks.indexOf(
       player1Cards[player1Cards.length - 1].rank
     );
@@ -249,5 +253,5 @@ class Game {
   }
 }
 
-const game = new Game();
-game.start();
+const newGame = new Dealer();
+newGame.start();
