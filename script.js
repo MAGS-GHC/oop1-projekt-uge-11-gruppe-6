@@ -73,7 +73,9 @@ class Player {
   }
 
   addCards(cards) {
-    this.deck.cards.unshift(...cards);
+    if (cards) {
+      this.deck.cards.unshift(...cards);
+    }
   }
 
   get length() {
@@ -91,6 +93,8 @@ class Game {
     this.player1.deck = this.deck.player1Deck;
     this.player2.deck = this.deck.player2Deck;
     console.log(this.deck.length);
+
+
   }
   start() {
     let buttonStart = document.querySelector('.play-button');
@@ -116,6 +120,9 @@ class Game {
     this.player1.drawCard();
     this.player2.drawCard();
     this.displayGame();
+
+    console.log(this.player1.deck)
+    console.log(this.player2.deck)
 
     const player1Rank = this.deck.ranks.indexOf(this.player1.currentCard.rank);
     const player2Rank = this.deck.ranks.indexOf(this.player2.currentCard.rank);
@@ -172,41 +179,35 @@ console.log(this.player1.currentCard)
       player2Cards.push(this.player2.deck.dealCard());
     }
 
-
-
     // display the cards drawn in the war
-    console.log(`Player 1 cards: `);
+    console.log(`Player 1 cards:`);
     for (let card of player1Cards) {
       console.log(`${card.rank} of ${card.suit} (${card.image})`);
       player1Write.innerHTML += `<img class="warCards" src="${card.image}"> `
     }
 
-
-
-    console.log(`Player 2 cards: `);
+    
+    console.log(`Player 2 cards:`);
     for (let card of player2Cards) {
       console.log(`${card.rank} of ${card.suit} (${card.image})`);
       player2Write.innerHTML += `<img class="warCards" src="${card.image}"> `
 
     }
 
-    
+  const player1LastCard = player1Cards[player1Cards.length - 1].rank;
+  const player2LastCard = player2Cards[player2Cards.length - 1].rank;
 
-  
-
-  const player1LastCard = parseInt(player1Cards[player1Cards.length - 1].rank);
-  const player2LastCard = parseInt(player2Cards[player2Cards.length - 1].rank);
-
-
-/* 
-  console.log(this.player2.deck.cards) */
 
   if (player1LastCard > player2LastCard) {
     console.log("Player 1 wins the war");
-/*     this.player1.addCards().push(...player2Cards, ...player1Cards);
- */    /* console.log(this.player1.deck) */
-
-      this.player2.deck.push(...player2Cards, ...player1Cards);
+    player1Cards.splice(0, 1)
+    player2Cards.splice(0, 1)
+    this.player1.addCards([
+      this.player1.currentCard,
+      this.player2.currentCard,
+      ...player1Cards,
+      ...player2Cards,
+    ]);
 
     warBTN.addEventListener("click", () =>{
       player2Write.innerHTML = "";
@@ -217,35 +218,29 @@ console.log(this.player1.currentCard)
   
   else if (player2LastCard > player1LastCard) {
 
-    console.log("Player 2 wins the war");
-    console.log(this.player2.deck.cards)
+    player1Cards.splice(0, 1)
+    player2Cards.splice(0, 1)
 
-    /* let transferCards = player2Cards.slice(3); */
-      
-      console.log(player2Cards)
-/*     this.player2.deck.cards.slice(player2Cards);
- */    warBTN.addEventListener("click", () =>{
+    this.player2.addCards([
+      this.player1.currentCard,
+      this.player2.currentCard,
+      ...player1Cards,
+      ...player2Cards,
+    ]);
+
+      warBTN.addEventListener("click", () =>{
       player2Write.innerHTML = "";
       player1Write.innerHTML = "";
       modalContainer.classList.remove("show");
     })
   }
 
-
   else {
     console.log("tie")
     this.war()  
   }
-
-
-  console.log(this.player1.deck + "Dette er player 1's array")
-  console.log(this.player2.deck + "Dette er player 2's array")
-  
-
-  console.log(warBTN)
-
-  
 }
+
 }
 
 const game = new Game();
