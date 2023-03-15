@@ -41,8 +41,10 @@ class Deck {
       [this.cards[i], this.cards[j]] = [this.cards[j], this.cards[i]]; // es6 swap
     }
   }
-  
-   dealHalf() {
+  get length() {
+    return this.cards.length;
+  }
+  dealHalf() {
     const half = Math.ceil(this.cards.length / 2);
     const deck1Cards = this.cards.slice(0, half);
     const deck2Cards = this.cards.slice(half);
@@ -50,15 +52,14 @@ class Deck {
     this.player2Deck = new Deck();
     this.player1Deck.cards = deck1Cards;
     this.player2Deck.cards = deck2Cards;
+    console.log(deck1Cards)
   }
 
   dealCard() {
     return this.cards.pop();
   }
 
-  get length() {
-    return this.cards.length;
-  }
+
 }
 
 class Player {
@@ -67,15 +68,12 @@ class Player {
     this.deck = deck;
     this.currentCard = null;
   }
-
   drawCard() {
     this.currentCard = this.deck.dealCard();
   }
-
   addCards(cards) {
     this.deck.cards.unshift(...cards);
   }
-
   get length() {
     return this.deck.length;
   }
@@ -90,7 +88,6 @@ class Game {
     this.deck.dealHalf();
     this.player1.deck = this.deck.player1Deck;
     this.player2.deck = this.deck.player2Deck;
-    console.log(this.deck.length);
   }
   start() {
     let buttonStart = document.querySelector('.play-button');
@@ -99,18 +96,80 @@ class Game {
     });
   }
   displayGame() {
+    // const player1CardElement = document.getElementById('player1-card');
+    // player1CardElement.setAttribute('src', this.player1.currentCard.image);
+    // const player1DeckElement = document.getElementById('player1-deck');
+    // player1DeckElement.textContent = `Cards left: ${this.player1.length + 1}`;
+
+    // const player2CardElement = document.getElementById('player2-card');
+    // player2CardElement.setAttribute('src', this.player2.currentCard.image);
+    // const player2DeckElement = document.getElementById('player2-deck');
+    // player2DeckElement.textContent = `Cards left: ${this.player2.length + 1}`;
+
     const player1CardElement = document.getElementById('player1-card');
-    player1CardElement.setAttribute('src', this.player1.currentCard.image);
+    player1CardElement.setAttribute('src', "./images/front_white.png");
+    player1CardElement.addEventListener("click", () => {
+      player1CardElement.setAttribute('src', this.player1.currentCard.image);
+    });
     const player1DeckElement = document.getElementById('player1-deck');
     player1DeckElement.textContent = `Cards left: ${this.player1.length + 1}`;
 
     const player2CardElement = document.getElementById('player2-card');
-    player2CardElement.setAttribute('src', this.player2.currentCard.image);
+    player2CardElement.setAttribute('src', "./images/front_black.png");
+    player2CardElement.addEventListener("click", () => {
+      player2CardElement.setAttribute('src', this.player2.currentCard.image);
+    });
     const player2DeckElement = document.getElementById('player2-deck');
     player2DeckElement.textContent = `Cards left: ${this.player2.length + 1}`;
+    
+    console.log(this.player1.currentCard.image)
+
+    // let rootContainer = [];
+    // for (let x = 1; x < 3; x++){
+    //   rootContainer[x] = document.querySelector(`.root-container${x}`);   
+    //   for(let i = 0; i < this.player1.deck.cards.length; i++){
+    //       rootContainer[x].innerHTML += `
+    //       <div class="container-content" id="card${i}">
+    //           <img class="container-content-img" src="images/front_white.png" alt="">
+    //       </div>
+    //       ` 
+    //   }
+    // }
+    // console.log(this.player1.deck.cards.length)
+    // console.log(this.player2.deck.cards.length)
+
+    let rootContainer1 = document.querySelector(`.root-container1`);   
+    for(let i = 0; i < this.player1.deck.cards.length; i++){
+      rootContainer1.innerHTML += `
+      <div class="container-content" id="card${i}">
+      <img class="container-content-img" src="images/front_white.png" alt="">
+      </div>
+      ` 
+    }
+    let rootContainer2 = document.querySelector(`.root-container2`);   
+    for(let i = 0; i < this.player2.deck.cards.length; i++){
+      rootContainer2.innerHTML += `
+      <div class="container-content" id="card${i}">
+      <img class="container-content-img" src="images/front_black.png" alt="">
+      </div>
+      ` 
+      let card = [];
+      card[i] = document.getElementById(`card${i}`);
+      card[i].addEventListener("click", () => {
+      console.log(`Hej ID ${i}`);
+      card[i].style.transform = "scale(1.05)";
+      card[i].style.transition = "ease-in-out .3s";
+      //card[i].style.cursor = "grab";
+      card[i].innerHTML = `
+          <img class="container-content-img" src="${this.player1.deck.cards[i].image}" alt="">
+      ` 
+      });
+    }
   }
 
   playRound() {
+    document.querySelector(".root-container1").innerHTML = "";
+    document.querySelector(".root-container2").innerHTML = "";
     // let buttonStart = document.querySelector('.play-button');
     // buttonStart.addEventListener('click', () => {
     this.player1.drawCard();

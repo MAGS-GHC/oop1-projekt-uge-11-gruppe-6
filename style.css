@@ -1,9 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Paytone+One&display=swap');
+
 .container {
   display: flex;
   justify-content: space-evenly;
 }
 img {
-  max-width: 10rem;
+  max-width: 7rem;
   /* max-height: 50%; */
 }
 #deck {
@@ -18,20 +20,22 @@ img {
   display: flex;
   justify-content: center;
   margin: 0 auto;
+  font-family: 'Paytone One', sans-serif;
+  border-radius: 1rem;
 }
 
-/* SAA style */
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Libre+Baskerville&display=swap');
+/* style */
+
 
 body{
-    font-family: 'Libre Baskerville', serif;
+    font-family: 'Paytone One', sans-serif;
     background-color: #2e4d3e;
 }
 .headline{
-    margin-top: 2rem;
+    margin-top: 1rem;
     display: flex;
     justify-content: center;
-    font-size: 3rem;
+    font-size: 2rem;
 }
 .root-container{
     margin: 5rem;
@@ -63,7 +67,7 @@ body{
 .root-container1 > div{
     border-radius: 20px;
     margin: .5rem;
-    /* margin-right: -1rem; */
+    margin-right: -2rem;
     flex-wrap: wrap;
     justify-content: center;
 }
@@ -82,7 +86,7 @@ body{
 .root-container2 > div{
     border-radius: 20px;
     margin: .5rem;
-    /* margin-right: -1rem; */
+    margin-right: -2rem;
     flex-wrap: wrap;
     justify-content: center;
     width: 4rem;
