@@ -102,84 +102,8 @@ class Game {
     this.player1.deck = this.deck.player1Deck;
     this.player2.deck = this.deck.player2Deck;
   }
-  start() {
-    let buttonStart = document.querySelector('.play-button');
-    buttonStart.addEventListener('click', () => {
-      this.playRound();
-    });
-  }
+
   displayGame() {
-    // const player1CardElement = document.getElementById('player1-card');
-    // player1CardElement.setAttribute('src', './images/front_white.png');
-    // player1CardElement.addEventListener('click', () => {
-    //   player1CardElement.setAttribute('src', this.player1.currentCard.image);
-    // });
-    // const player1DeckElement = document.getElementById('player1-deck');
-    // player1DeckElement.textContent = `Cards left: ${this.player1.length + 1}`;
-    // const player2CardElement = document.getElementById('player2-card');
-    // player2CardElement.setAttribute('src', './images/front_black.png');
-    // player2CardElement.addEventListener('click', () => {
-    //   player2CardElement.setAttribute('src', this.player2.currentCard.image);
-    // });
-    // const player2DeckElement = document.getElementById('player2-deck');
-    // player2DeckElement.textContent = `Cards left: ${this.player2.length + 1}`;
-    this.updatePlayerHand();
-  }
-
-  updatePlayerHand() {
-    // let rootContainer1 = document.querySelector(`.root-container1`);
-    // for (let i = 0; i < this.player1.deck.cards.length; i++) {
-    //   rootContainer1.innerHTML += `
-    //   <div class="container-content" id="card${i}">
-    //   <img class="container-content-img" src="images/front_white.png " alt="">
-    //   </div>
-    //   `;
-    // }
-
-    // let rootContainer2 = document.querySelector(`.root-container2`);
-    // for (let i = 0; i < this.player1.deck.cards.length; i++) {
-    //   rootContainer2.innerHTML += `
-    //   <div class="container-content" id="card${i}">
-    //   <img class="container-content-img" src="images/front_black.png" alt="">
-    //   </div>
-    //   `;
-    //   let card = [];
-    //   card[this.player1.deck.cards[i].id] = document.getElementById(`card${i}`);
-
-    //   // eventlistener for every card with id
-
-    //   card[this.player1.deck.cards[i].id].addEventListener('click', () => {
-    //     const player1CardElement = document.getElementById('player1-card');
-    //     player1CardElement.setAttribute('src', './images/front_white.png');
-
-    //     // eventlistener for  current card ( top )
-    //     player1CardElement.addEventListener('click', () => {
-    //       player1CardElement.setAttribute(
-    //         'src',
-    //         this.player1.deck.cards[i].image
-    //         // this.player1.currentCard.image
-    //       );
-    //     });
-    //     const player1DeckElement = document.getElementById('player1-deck');
-    //     player1DeckElement.textContent = `Cards left: ${
-    //       this.player1.length + 1
-    //     }`;
-
-    //     console.log(`Hej ID ${this.player1.deck.cards[i].id}`);
-    //     card[this.player1.deck.cards[i].id].style.transform = 'scale(1.02)';
-    //     card[this.player1.deck.cards[i].id].style.transition =
-    //       'ease-in-out .2s';
-    //     card[this.player1.deck.cards[i].id].innerHTML = `
-    //       <img class="container-content-img" src="${this.player1.deck.cards[i].image}" alt="">
-
-    //   `;
-    //     console.log(this.player1.deck.cards[i].id);
-    //     //  console.log(this.player2.deck.cards[i].id);
-    //   });
-    //   console.log(card);
-    // }
-
-    ///////////
     //player 1
     let rootContainer1 = document.querySelector(`.root-container1`);
     for (let i = 0; i < this.player1.deck.cards.length; i++) {
@@ -207,9 +131,7 @@ class Game {
           );
         });
         const player1DeckElement = document.getElementById('player1-deck');
-        player1DeckElement.textContent = `Cards left: ${
-          this.player1.length + 1
-        }`;
+        player1DeckElement.textContent = `Cards left: ${this.player1.length}`;
         console.log(`Irriterende for(){addEvL(i, ()=> {});} IDx: ${cardId}`);
         cardx[cardId].style.transform = 'scale(1.02)';
         cardx[cardId].style.transition = 'ease-in-out .2s';
@@ -246,9 +168,7 @@ class Game {
         });
 
         const player2DeckElement = document.getElementById('player2-deck');
-        player2DeckElement.textContent = `Cards left: ${
-          this.player2.length + 1
-        }`;
+        player2DeckElement.textContent = `Cards left: ${this.player2.length}`;
 
         console.log(
           `Irriterende for(){addEvL(i, ()=> {});} ID: ${this.player2.deck.cards[i].id}`
@@ -264,27 +184,10 @@ class Game {
     }
   }
 
-  /////////
-
-  // let rootContainer = [];
-  // for (let x = 1; x < 3; x++){
-  //   rootContainer[x] = document.querySelector(`.root-container${x}`);
-  //   for(let i = 0; i < this.player1.deck.cards.length; i++){
-  //       rootContainer[x].innerHTML += `
-  //       <div class="container-content" id="card${i}">
-  //           <img class="container-content-img" src="images/front_white.png" alt="">
-  //       </div>
-  //       `
-  //   }
-  // }
-  // console.log(this.player1.deck.cards.length)
-  // console.log(this.player2.deck.cards.length)
-
   playRound() {
     document.querySelector('.root-container1').innerHTML = '';
     document.querySelector('.root-container2').innerHTML = '';
-    // let buttonStart = document.querySelector('.play-button');
-    // buttonStart.addEventListener('click', () => {
+    
     this.player1.drawCard();
     this.player2.drawCard();
     this.displayGame();
@@ -313,10 +216,9 @@ class Game {
       alert('Player 1 Wins!');
       location.reload();
     }
-    // });
+  
   }
 
-  // mangler war method
   war() {
     const player1Cards = [this.player1.currentCard];
     const player2Cards = [this.player2.currentCard];
@@ -354,7 +256,26 @@ class Game {
       this.war();
     }
   }
+
+
+  start() {
+    let buttonStart = document.querySelector('.play-button');
+    let buttonPlay = document.querySelector('.new-button');
+    buttonStart.addEventListener('click', () => {
+      buttonStart.style.display = 'none';
+      buttonPlay.style.display = 'block';
+      this.displayGame();
+    });
+  }
+
+  play() {
+    let buttonPlay = document.querySelector('.new-button');
+    buttonPlay.addEventListener('click', () => {
+      this.playRound();
+    });
+  }
 }
 
 const game = new Game();
 game.start();
+game.play();
