@@ -1,12 +1,13 @@
 
 class Card {
-  constructor(suit, rank, image) {
+  constructor(suit, rank, image, id) {
     this.suit = suit;
     this.rank = rank;
     this.image = image;
+    this.id = id;
+
   }
 }
-
 class Deck {
   constructor() {
     this.cards = [];
@@ -95,6 +96,8 @@ class Game {
     deckSplit2 = shuffledDeck.slice(26, 52); 
 
     console.log(shuffledDeck)
+    console.log(deckSplit1)
+    console.log(deckSplit2)
 
     this.player1 = new Player('Player 1', new Deck());
     this.player2 = new Player('Player 2', new Deck());
@@ -110,6 +113,7 @@ class Game {
     // console.log(this.player2.deck.cards)
     console.log(this.deck)
     console.log(this.player1)
+    console.log(this.player2)
   }
   // handPlayerOne(input){
   //   let rootContainer1 = document.querySelector(".root-container1");   
