@@ -1,19 +1,4 @@
-// const suits = ['hearts', 'diamonds', 'clubs', 'spades'];
-// const ranks = [
-//   '2',
-//   '3',
-//   '4',
-//   '5',
-//   '6',
-//   '7',
-//   '8',
-//   '9',
-//   '10',
-//   'jack',
-//   'queen',
-//   'king',
-//   'ace',
-// ];
+
 class Card {
   constructor(suit, rank, image) {
     this.suit = suit;
@@ -117,12 +102,12 @@ class Game {
     const player1CardElement = document.getElementById('player1-card');
     player1CardElement.setAttribute('src', this.player1.currentCard.image);
     const player1DeckElement = document.getElementById('player1-deck');
-    player1DeckElement.textContent = `Cards left: ${this.player1.length}`;
+    player1DeckElement.textContent = `Cards left: ${this.player1.length + 1}`;
 
     const player2CardElement = document.getElementById('player2-card');
     player2CardElement.setAttribute('src', this.player2.currentCard.image);
     const player2DeckElement = document.getElementById('player2-deck');
-    player2DeckElement.textContent = `Cards left: ${this.player2.length}`;
+    player2DeckElement.textContent = `Cards left: ${this.player2.length + 1}`;
   }
 
   playRound() {
