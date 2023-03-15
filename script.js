@@ -1,19 +1,4 @@
-// const suits = ['hearts', 'diamonds', 'clubs', 'spades'];
-// const ranks = [
-//   '2',
-//   '3',
-//   '4',
-//   '5',
-//   '6',
-//   '7',
-//   '8',
-//   '9',
-//   '10',
-//   'jack',
-//   'queen',
-//   'king',
-//   'ace',
-// ];
+
 class Card {
   constructor(suit, rank, image) {
     this.suit = suit;
@@ -26,21 +11,8 @@ class Deck {
   constructor() {
     this.cards = [];
     this.suits = ['hearts', 'diamonds', 'clubs', 'spades'];
-    this.ranks = [
-      '2',
-      '3',
-      '4',
-      '5',
-      '6',
-      '7',
-      '8',
-      '9',
-      '10',
-      'jack',
-      'queen',
-      'king',
-      'ace',
-    ];
+    this.ranks = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "ace"];
+
     for (let suit of this.suits) {
       for (let rank of this.ranks) {
         // image file name
@@ -100,6 +72,8 @@ class Game {
     this.player1 = new Player('Player 1', new Deck());
     this.player2 = new Player('Player 2', new Deck());
 
+    console.log(this.player1)
+
     for (let i = 0; i < this.deck.length; i++) {
       if (i % 2 === 0) {
         this.player1.deck.cards.push(this.deck.cards[i]);
@@ -108,12 +82,14 @@ class Game {
       }
     }
   }
+
   start() {
     let buttonStart = document.querySelector('.play-button');
     buttonStart.addEventListener('click', () => {
       this.playRound();
     });
   }
+
   displayGame() {
     const player1CardElement = document.getElementById('player1-card');
     player1CardElement.setAttribute('src', this.player1.currentCard.image);
@@ -127,15 +103,13 @@ class Game {
   }
 
   playRound() {
-    // let buttonStart = document.querySelector('.play-button');
-    // buttonStart.addEventListener('click', () => {
     this.player1.drawCard();
     this.player2.drawCard();
     this.displayGame();
-
-    const player1Rank = this.deck.ranks.indexOf(this.player1.currentCard.rank);
-    const player2Rank = this.deck.ranks.indexOf(this.player2.currentCard.rank);
-
+  
+    const player1Rank = this.player1.deck.ranks.indexOf(this.player1.currentCard.rank);
+    const player2Rank = this.player2.deck.ranks.indexOf(this.player2.currentCard.rank);
+  
     if (player1Rank > player2Rank) {
       this.player1.addCards([
         this.player1.currentCard,
@@ -149,7 +123,7 @@ class Game {
     } else {
       this.war();
     }
-
+  
     if (this.player1.length === 0) {
       alert('Player 2 Wins!');
       location.reload();
@@ -157,13 +131,34 @@ class Game {
       alert('Player 1 Wins!');
       location.reload();
     }
-    // });
   }
 
+  
+  
+  
+  
+  
+  
+
   // mangler war method
+
+
   war() {
+    const warContainer = document.querySelector(".war-container")
+    const modalContainer = document.querySelector(".modal-container")
+
+    const player1Write = document.querySelector(".player1-war-cards")
+    const player2Write = document.querySelector(".player2-war-cards")
+
+
+    const warBTN = document.querySelector(".warBTN")
+
     const player1Cards = [this.player1.currentCard];
     const player2Cards = [this.player2.currentCard];
+    
+    modalContainer.classList.add("show")
+
+
 
     // draw 3 cards
 
@@ -172,32 +167,58 @@ class Game {
       player2Cards.push(this.player2.deck.dealCard());
     }
 
-    // check the last card
-    const player1Rank = this.deck.ranks.indexOf(
-      player1Cards[player1Cards.length - 1].rank
-    );
-    const player2Rank = this.deck.ranks.indexOf(
-      player2Cards[player2Cards.length - 1].rank
-    );
 
-    if (player1Rank > player2Rank) {
-      // this.player1.addCards([
-      //   ...player1Cards,
-      //   ...player2Cards,
-      //   player1Cards,
-      //   player2Cards,
-      // ]);
-    } else if (player2Rank > player1Rank) {
-      // this.player2.addCards([
-      //   ...player1Cards,
-      //   ...player2Cards,
-      //   player1Cards,
-      //   player2Cards,
-      // ]);
-    } else {
-      this.war();
+
+    // display the cards drawn in the war
+    console.log(`Player 1 cards: `);
+    for (let card of player1Cards) {
+      console.log(`${card.rank} of ${card.suit} (${card.image})`);
+      player1Write.innerHTML += `<img class="warCards" src="${card.image}"> `
     }
+
+
+
+    console.log(`Player 2 cards: `);
+    for (let card of player2Cards) {
+      console.log(`${card.rank} of ${card.suit} (${card.image})`);
+      player2Write.innerHTML += `<img class="warCards" src="${card.image}"> `
+
+    }
+
+  const player1LastCard = parseInt(player1Cards[player1Cards.length - 1].rank);
+  const player2LastCard = parseInt(player2Cards[player2Cards.length - 1].rank);
+
+
+  if (player1LastCard > player2LastCard) {
+    console.log("Player 1 wins the war");
+    this.player1.deck.push(...player1Cards, ...player2Cards);
+    console.log(player1.deck)
+    warBTN.addEventListener("click", () =>{
+      warContainer.innerHTML = "";
+      modalContainer.classList.remove("show");
+    })
+  } 
+  
+  else if (player2LastCard > player1LastCard) {
+
+    console.log("Player 2 wins the war");
+    console.log(this.player2.deck)
+    this.player2.deck.push(...player1Cards, ...player2Cards);
+    warBTN.addEventListener("click", () =>{
+      warContainer.innerHTML = "";
+      modalContainer.classList.remove("show");
+    })
+
   }
+  
+  else {
+
+    
+  }
+
+
+  
+}
 }
 
 const game = new Game();
