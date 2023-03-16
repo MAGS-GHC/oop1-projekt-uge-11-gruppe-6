@@ -26,105 +26,101 @@ img {
 
 /* style */
 
-
-body{
-    font-family: 'Paytone One', sans-serif;
-    background-color: #2e4d3e;
+body {
+  font-family: 'Paytone One', sans-serif;
+  background-color: #2e4d3e;
 }
-.headline{
-    margin-top: 1rem;
-    display: flex;
-    justify-content: center;
-    font-size: 2rem;
+.headline {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  font-size: 2rem;
 }
-.root-container{
-    margin: 5rem;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+.root-container {
+  margin: 5rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
-.root-container > div{
-    border-radius: 20px;
-    margin: .5rem;
-    flex-wrap: wrap;
-    justify-content: center;
+.root-container > div {
+  border-radius: 20px;
+  margin: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
 }
-.root-container > div:hover{
-    /* transform: scale(1.05);
+.root-container > div:hover {
+  /* transform: scale(1.05);
     transition: ease-in-out 1s; */
-    cursor: pointer;
+  cursor: pointer;
 }
-.container-content-img{
-    width: 4rem;
+.container-content-img {
+  width: 4rem;
 }
 /* PLAYER ONE */
-.root-container1{
-    margin: 5rem;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+.root-container1 {
+  margin: 5rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
-.root-container1 > div{
-    border-radius: 20px;
-    margin: .5rem;
-    margin-right: -1rem;
-    flex-wrap: wrap;
-    justify-content: center;
+.root-container1 > div {
+  border-radius: 20px;
+  margin: 0.5rem;
+  margin-right: -1rem;
+  flex-wrap: wrap;
+  justify-content: center;
 }
-.root-container1 > div:hover{
-    /* transform: scale(1.05);
+.root-container1 > div:hover {
+  /* transform: scale(1.05);
     transition: ease-in-out 1s; */
-    cursor: pointer;
+  cursor: pointer;
 }
 /* PLAYER TWO */
-.root-container2{
-    margin: 5rem;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+.root-container2 {
+  margin: 5rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
-.root-container2 > div{
-    border-radius: 20px;
-    margin: .5rem;
-    margin-right: -1rem;
-    flex-wrap: wrap;
-    justify-content: center;
-    width: 4rem;
+.root-container2 > div {
+  border-radius: 20px;
+  margin: 0.5rem;
+  margin-right: -1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 4rem;
 }
-.root-container2 > div:hover{
-    /* transform: scale(1.05);
+.root-container2 > div:hover {
+  /* transform: scale(1.05);
     transition: ease-in-out 1s; */
-    cursor: pointer;
+  cursor: pointer;
 }
 
-.player-headline{
-    font-size: 2rem;
-    justify-content: center;
-    display: flex;
-    margin: 0 auto;
-    text-align: center;
+.player-headline {
+  font-size: 2rem;
+  justify-content: center;
+  display: flex;
+  margin: 0 auto;
+  text-align: center;
 }
-.player-container{
-    display: flex;
+.player-container {
+  display: flex;
 }
-.player-container > div{
-    flex-wrap: wrap;
-    justify-content: center;
+.player-container > div {
+  flex-wrap: wrap;
+  justify-content: center;
 }
-#target{
-    border: 2px dotted black;
-    width: 64px;
-    height: 96px;
-    margin: 0 auto;
+#target {
+  border: 2px dotted black;
+  width: 64px;
+  height: 96px;
+  margin: 0 auto;
 }
 
-
-.war-container{
+.war-container {
   display: flex;
   justify-content: space-around;
 }
-
-
 
 /* Modal */
 
@@ -151,108 +147,132 @@ body{
   text-align: center;
 }
 
-.war-card-container{
+.war-card-container {
   display: none;
 }
 
-
-
-.player1-war-cards{
-  display: flex;
-  justify-content: space-around;
-  margin: 5%;
-
-}
-
-.player1-war-cards img{
-  max-width: 25%;
-  margin: 1%;
-
-}
-
-.player2-war-cards{
+.player1-war-cards {
   display: flex;
   justify-content: space-around;
   margin: 5%;
 }
 
-.player2-war-cards img{
+.player1-war-cards img {
   max-width: 25%;
   margin: 1%;
 }
 
-.right-icon{
-  transform: rotate(315deg);
-  width: 45%;
-  animation: swordSwingLeft 2s  forwards;
-  color: #2E3D4D;
-
-
+.player2-war-cards {
+  display: flex;
+  justify-content: space-around;
+  margin: 5%;
 }
 
-.left-icon{
-  transform: rotate(315deg);
-  width: 45%;
-  animation: swordSwingRight 2s  forwards;
-  color: #4D2E3D;
+.player2-war-cards img {
+  max-width: 25%;
+  margin: 1%;
 }
 
-.show{
+.right-icon {
+  transform: rotate(315deg);
+  width: 45%;
+  animation: swordSwingLeft 2s forwards;
+  color: #2e3d4d;
+}
+
+.left-icon {
+  transform: rotate(315deg);
+  width: 45%;
+  animation: swordSwingRight 2s forwards;
+  color: #4d2e3d;
+}
+
+.show {
   display: block;
   animation: fadeIn 0.3s ease-in forwards;
 }
 
-.hidden{
+.hidden {
   display: none;
 }
 
-.warCards0{
+.warCards0 {
   display: none;
 }
 
-
-.war-card-container img{
+.war-card-container img {
   position: relative;
 }
 
 @keyframes swordSwingRight {
-  0%{
-      rotate: 315deg;
-      transform: translateX(0);
+  0% {
+    rotate: 315deg;
+    transform: translateX(0);
   }
 
-  100%{
-      rotate: 360deg;
-      transform: translateX(50px);
-
+  100% {
+    rotate: 360deg;
+    transform: translateX(50px);
   }
 }
 
 @keyframes swordSwingLeft {
-  from{
-      rotate: 315deg;
-      transform: translateX(0);
-
-
+  from {
+    rotate: 315deg;
+    transform: translateX(0);
   }
-  to{
-      rotate: 270deg;
-      transform: translateY(-50px);
-
-
+  to {
+    rotate: 270deg;
+    transform: translateY(-50px);
   }
 }
 
- @keyframes fadeIn{
-  from{
+@keyframes fadeIn {
+  from {
     transform: translateY(-10px);
     opacity: 0;
   }
 
-  to{
-    
+  to {
     transform: translateY(-0px);
     opacity: 1;
-
   }
- }
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #2e4d3eb4;
+}
+
+.modal-content {
+  background-color: #cbffe2;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  border-radius: 5rem;
+  width: 90%;
+  text-align: center;
+}
+
+.close {
+  color: #0a523a;
+  float: right;
+  font-size: 35px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  cursor: pointer;
+  color: black;
+  text-decoration: none;
+}
+.modal.show {
+  display: block;
+}
