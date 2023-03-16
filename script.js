@@ -11,24 +11,9 @@ class Deck {
   constructor() {
     this.cards = [];
     this.suits = ['hearts', 'diamonds', 'clubs', 'spades'];
-    this.ranks = [
-      {rank:'2', value: 2}, 
-      {rank: '3', value: 3}, 
-      {rank: '4', value: 4}, 
-      {rank: '5', value: 5}, 
-      {rank: '6', value: 6}, 
-      {rank: '7', value: 7}, 
-      {rank: '8', value: 8},
-      {rank: '9', value: 9},
-      {rank: '10', value: 10}, 
-      {rank: 'jack', value: 11},
-      {rank: 'queen', value: 12},
-      {rank: 'king', value: 13},
-      {rank: 'ace', value: 14}
-    ];
-    console.log(this.ranks.value)
+    this.ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'jack', 'queen', 'king', 'ace'];
     for (let suit of this.suits) {
-      for (let rank in this.ranks.rank) {
+      for (let rank of this.ranks) {
         let image = `./images/${rank}_of_${suit}.png`;
         this.cards.push(new Card(suit, rank, image));
       }
@@ -107,8 +92,6 @@ class Dealer {
     });
     const player2DeckElement = document.getElementById('player2-deck');
     player2DeckElement.textContent = `Cards left: ${this.player2.length + 1}`;
-
-    this.displayPlayerAllCards();
   }
   
   displayPlayerAllCards(){
@@ -157,6 +140,7 @@ class Dealer {
   playRound() {
     document.querySelector(".root-container1").innerHTML = "";
     document.querySelector(".root-container2").innerHTML = "";
+    this.displayPlayerAllCards();
     this.player1.drawCard();
     this.player2.drawCard();
     this.displayHands();
@@ -203,7 +187,6 @@ class Dealer {
       this.player2.addCards([...player1Cards, ...player2Cards]);
     } 
     else {
-        console.log("tie")
         player1Write.innerHTML = "";
         player2Write.innerHTML = "";
         winnerTXT.innerHTML = `<h2 class="war-winner-text">Det stod lige vi prøver igen</h2>`
@@ -235,7 +218,7 @@ class Dealer {
     const warCardContainer = document.querySelector(".war-card-container");
     const winnerTXT = document.querySelector(".winner-text")
 
-    warBTN.addEventListener("click", () => {
+    //warBTN.addEventListener("click", () => {
       player2Write.innerHTML = "";
       player1Write.innerHTML = "";
       winnerTXT.innerHTML = ""
@@ -243,7 +226,7 @@ class Dealer {
       modalContainer.classList.remove("show");
       modalLoader.classList.remove("hidden");
       warCardContainer.classList.remove("show");
-    });
+    //});
   }
 
   war() {
