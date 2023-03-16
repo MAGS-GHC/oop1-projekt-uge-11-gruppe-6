@@ -19,21 +19,12 @@ class Deck {
       }
     }
   }
-  // shuffle() {
-  //   //--Deck does not shuffle, Dealer shuffles etc.--//
-  //   for (let i = this.cards.length - 1; i > 0; i--) {
-  //     const j = Math.floor(Math.random() * (i + 1));
-  //     [this.cards[i], this.cards[j]] = [this.cards[j], this.cards[i]]; // es6 swap
-  //   }
-  // }
   get length() {
     return this.cards.length;
   }
   
   ShuffleAndDealHalf() {
     const shuffledDeck = this.cards.sort(() => 0.5 - Math.random());
-    // const half = Math.ceil(this.cards.length / 2);
-    //const half = this.cards.length / 2;
     const deck1Cards = shuffledDeck.slice(0, 26);
     const deck2Cards = shuffledDeck.slice(26);
     this.player1Deck = new Deck();
@@ -66,7 +57,6 @@ class Player {
 class Dealer {
   constructor() {
     this.deck = new Deck();
-    //this.deck.shuffle();
     this.deck.ShuffleAndDealHalf();
     this.player1 = new Player('Player 1', new Deck());
     this.player2 = new Player('Player 2', new Deck());
@@ -103,7 +93,6 @@ class Dealer {
   }
 
   displayPlayerAllCards(){
-    //PLAYER 1
     let rootContainer1 = document.querySelector(`.root-container1`);   
     for(let i = 0; i < this.player1.deck.cards.length; i++){
       rootContainer1.innerHTML += `
@@ -116,7 +105,6 @@ class Dealer {
       let cardx = []; 
       cardx[i] = document.getElementById(`cardx${i}`);
       cardx[i].addEventListener("click", () => {
-      console.log(`Irriterende for(){addEvL(i, ()=> {});} IDx: ${i}`);
       cardx[i].style.transform = "scale(1.02)";
       cardx[i].style.transition = "ease-in-out .2s";
       cardx[i].innerHTML = `
@@ -124,7 +112,6 @@ class Dealer {
       ` 
       });
     }
-    //PLAYER 2
     let rootContainer2 = document.querySelector(`.root-container2`); 
     for(let i = 0; i < this.player2.deck.cards.length; i++){
       rootContainer2.innerHTML += `
@@ -137,7 +124,6 @@ class Dealer {
       let card = []; 
       card[i] = document.getElementById(`card${i}`);
       card[i].addEventListener("click", () => {
-      console.log(`Irriterende for(){addEvL(i, ()=> {});} ID: ${i}`);
       card[i].style.transform = "scale(1.02)";
       card[i].style.transition = "ease-in-out .2s";
       card[i].innerHTML = `
@@ -219,6 +205,5 @@ class Dealer {
     }
   }
 }
-
 const newGame = new Dealer();
 newGame.start();
