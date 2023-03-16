@@ -24,8 +24,8 @@ class Deck {
   }
   
   shuffleAndDealHalf() {
-    // const shuffledDeck = this.cards.sort(() => 0.5 - Math.random());
-    const shuffledDeck = this.cards;
+    const shuffledDeck = this.cards.sort(() => 0.5 - Math.random());
+    //const shuffledDeck = this.cards;
     const deck1Cards = shuffledDeck.slice(0, 26);
     const deck2Cards = shuffledDeck.slice(26);
     this.player1Deck = new Deck();
