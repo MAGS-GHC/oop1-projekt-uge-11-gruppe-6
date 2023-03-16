@@ -99,7 +99,7 @@ class Dealer {
       // player2DeckElement.style.pointerevents = 'none';
       // document.getElementById('player1-card').diabled = true;
     });
-    const player1DeckElement = document.getElementById('player1-deck');
+    let player1DeckElement = document.getElementById('player1-deck');
     player1DeckElement.textContent = `Cards left: ${this.player1.deck.cards.length + 1}`;
 
     const player2CardElement = document.getElementById('player2-card');
@@ -110,7 +110,7 @@ class Dealer {
         this.playRound();
       }, 2000);
     });
-    const player2DeckElement = document.getElementById('player2-deck');
+    let player2DeckElement = document.getElementById('player2-deck');
     player2DeckElement.textContent = `Cards left: ${this.player2.deck.cards.length + 1}`;
   }
 
@@ -299,7 +299,11 @@ class Dealer {
           this.checkWarResult(player1Cards, player2Cards, card1, card2);
           warBTN.addEventListener("click", () =>{
             this.endWar();
-            this.playRound();
+            //this.playRound();
+            let player1DeckElement = document.getElementById('player1-deck');
+            let player2DeckElement = document.getElementById('player2-deck');
+            player1DeckElement.textContent = `Cards left: ${this.player1.deck.cards.length + 1}`;
+            player2DeckElement.textContent = `Cards left: ${this.player2.deck.cards.length + 1}`;
           })                  
         }        
       });
