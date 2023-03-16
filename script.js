@@ -35,12 +35,12 @@ class Deck {
     }
   }
 
-  shuffle() {
+/*   shuffle() {
     for (let i = this.cards.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [this.cards[i], this.cards[j]] = [this.cards[j], this.cards[i]]; // es6 swap
     }
-  }
+  } */
   
    dealHalf() {
     const half = Math.ceil(this.cards.length / 2);
@@ -86,8 +86,8 @@ class Player {
 class Game {
   constructor() {
     this.deck = new Deck();
-    this.deck.shuffle();
-    this.player1 = new Player('Player 1', new Deck());
+/*     this.deck.shuffle();
+ */    this.player1 = new Player('Player 1', new Deck());
     this.player2 = new Player('Player 2', new Deck());
     this.deck.dealHalf();
     this.player1.deck = this.deck.player1Deck;
@@ -136,6 +136,7 @@ class Game {
         this.player2.currentCard,
       ]);
     } else {
+
       this.war();
     }
 
@@ -151,6 +152,10 @@ class Game {
 
   checkWarResult(player1Cards, player2Cards, player1LastCard, player2LastCard) {
     const winnerTXT = document.querySelector(".winner-text");
+
+        /* Variable til at skrive data */
+        let player1Write = document.querySelector(".player1-war-cards")
+        let player2Write = document.querySelector(".player2-war-cards")
 
 
     
@@ -168,7 +173,9 @@ class Game {
     } 
     else {
         console.log("tie")
-
+        player1Write.innerHTML = "";
+        player2Write.innerHTML = "";
+        winnerTXT.innerHTML = `<h2 class="war-winner-text">Det stod lige vi prøver igen</h2>`
         this.war();
 
     }
@@ -219,31 +226,28 @@ class Game {
 
   war() {
 
-    const warBTN = document.querySelector(".warBTN")
+    const warBTN = document.querySelector(".warBTN");
+
+    let player1Write = document.querySelector(".player1-war-cards")
+    let player2Write = document.querySelector(".player2-war-cards")
+
+
+
 
     this.startWar()
-
-    /* Variable til at skrive data */
-    const player1Write = document.querySelector(".player1-war-cards")
-    const player2Write = document.querySelector(".player2-war-cards")
 
     /* De trukkede kort */
     const player1Cards = [this.player1.currentCard];
     const player2Cards = [this.player2.currentCard];
-
-
     /* Det sidste kort af de trukkede kort */
     let player1LastCard = player1Cards[player1Cards.length - 1].rank;
     let player2LastCard = player2Cards[player2Cards.length - 1].rank;
-
-
 
     // draw 3 cards
     for (let i = 0; i < 3; i++) {
       player1Cards.push(this.player1.deck.dealCard());
       player2Cards.push(this.player2.deck.dealCard());
     }
-
 
     /* Starter en count til antal clicks på kort */
     let cardsClicked = 0
@@ -265,7 +269,7 @@ class Game {
         img.setAttribute("src", card1.image);
         const img2 = player2Write.querySelectorAll("img")[i];
         img2.setAttribute("src", card2.image);
-        cardsClicked++;
+        cardsClicked++;        
         if (cardsClicked === totalCards-1) {
           this.checkWarResult(player1Cards, player2Cards, card1, card2);
           warBTN.addEventListener("click", () =>{
