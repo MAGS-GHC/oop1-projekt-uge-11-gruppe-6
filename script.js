@@ -315,7 +315,6 @@ class Dealer {
           this.checkWarResult(player1Cards, player2Cards, card1, card2);
           warBTN.addEventListener("click", () =>{
             this.endWar();
-            this.displayGame();
           })                  
         }        
       });
