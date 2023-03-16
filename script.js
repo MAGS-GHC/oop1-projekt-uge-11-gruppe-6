@@ -20,31 +20,29 @@ class Deck {
     }
     //+Unique cards+//
   }
-  //+?+//
-  shuffle() {
-    //--Deck does not shuffle, Dealer shuffles etc.--//
-    for (let i = this.cards.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [this.cards[i], this.cards[j]] = [this.cards[j], this.cards[i]]; // es6 swap
-    }
-  }
+  // shuffle() {
+  //   //--Deck does not shuffle, Dealer shuffles etc.--//
+  //   for (let i = this.cards.length - 1; i > 0; i--) {
+  //     const j = Math.floor(Math.random() * (i + 1));
+  //     [this.cards[i], this.cards[j]] = [this.cards[j], this.cards[i]]; // es6 swap
+  //   }
+  // }
+
   //+?+//
   get length() {
     return this.cards.length;
   }
-  //+?+//
-  dealHalf() {
-    //--Deck does not cut, Dealer cuts--//
+  
+  ShuffleAndDealHalf() {
+    const shuffledDeck = this.cards.sort(() => 0.5 - Math.random());
     const half = Math.ceil(this.cards.length / 2);
-    const deck1Cards = this.cards.slice(0, half);
-    const deck2Cards = this.cards.slice(half);
+    const deck1Cards = shuffledDeck.slice(0, half);
+    const deck2Cards = shuffledDeck.slice(half);
     this.player1Deck = new Deck();
     this.player2Deck = new Deck();
     this.player1Deck.cards = deck1Cards;
     this.player2Deck.cards = deck2Cards;
-    console.log(deck1Cards)
   }
-  //--Deck does not deal, Dealer deals--//
   dealCard() {
     return this.cards.pop();
   }
@@ -71,13 +69,16 @@ class Player {
 class Dealer {
   constructor() {
     this.deck = new Deck();
-    this.deck.shuffle();
+    //this.deck.shuffle();
+    this.deck.ShuffleAndDealHalf();
     this.player1 = new Player('Player 1', new Deck());
     this.player2 = new Player('Player 2', new Deck());
-    this.deck.dealHalf();
     this.player1.deck = this.deck.player1Deck;
     this.player2.deck = this.deck.player2Deck;
+
+    console.log(this.deck.cards)
   }
+
   start() {
     let buttonStart = document.querySelector('.play-button');
     buttonStart.addEventListener('click', () => {
@@ -187,7 +188,6 @@ class Dealer {
   }
 
   war() {
-    //++More methods in war++//
     const player1Cards = [this.player1.currentCard];
     const player2Cards = [this.player2.currentCard];
 
