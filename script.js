@@ -165,7 +165,7 @@ class Dealer {
     }
     if (this.player1.length < 3) {
       let winnerstatement = document.querySelector(".winnerstatement"); 
-      winnerstatement.innerHTML = "Player 1 wins"
+      winnerstatement.innerHTML = `<h2 class="war-winner-text">Player 1 vinder</h2>`;
     } else if (this.player2.length < 3) {
       let winnerstatement = document.querySelector(".winnerstatement"); 
       winnerstatement.innerHTML = "Player 2 wins"
