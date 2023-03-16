@@ -149,8 +149,10 @@ class Game {
     // });
   }
 
-  checkWarResult(player1Cards, player2Cards, player1LastCard, player2LastCard, player1Write, player2Write) {
+  checkWarResult(player1Cards, player2Cards, player1LastCard, player2LastCard) {
     const winnerTXT = document.querySelector(".winner-text");
+
+
     
     if (player1LastCard.rank > player2LastCard.rank) {
       console.log("player 1 vinder")
@@ -221,13 +223,9 @@ class Game {
 
     this.startWar()
 
-
-
     /* Variable til at skrive data */
     const player1Write = document.querySelector(".player1-war-cards")
     const player2Write = document.querySelector(".player2-war-cards")
-   
-
 
     /* De trukkede kort */
     const player1Cards = [this.player1.currentCard];
@@ -235,8 +233,8 @@ class Game {
 
 
     /* Det sidste kort af de trukkede kort */
-    const player1LastCard = player1Cards[player1Cards.length - 1].rank;
-    const player2LastCard = player2Cards[player2Cards.length - 1].rank;
+    let player1LastCard = player1Cards[player1Cards.length - 1].rank;
+    let player2LastCard = player2Cards[player2Cards.length - 1].rank;
 
 
 
@@ -256,7 +254,7 @@ class Game {
     for (let i = 0; i < totalCards; i++) {
       const card1 = player1Cards[i];
       const card2 = player2Cards[i];
-      //console.log(`${card1.rank} of ${card1.suit} (${card1.image})`);
+
     
       /* Opretter nye img elementer for hvert kort */
       const img = document.createElement("img");
@@ -272,6 +270,7 @@ class Game {
           this.checkWarResult(player1Cards, player2Cards, card1, card2);
           warBTN.addEventListener("click", () =>{
             this.endWar();
+            this.displayGame();
           })                  
         }        
       });
