@@ -82,7 +82,7 @@ img {
 .right-icon{
   transform: rotate(315deg);
   width: 45%;
-  animation: swordSwingLeft 3s  forwards;
+  animation: swordSwingLeft 2s  forwards;
   color: #2E3D4D;
 
 
@@ -91,46 +91,49 @@ img {
 .left-icon{
   transform: rotate(315deg);
   width: 45%;
-  animation: swordSwingRight 3s  forwards;
+  animation: swordSwingRight 2s  forwards;
   color: #4D2E3D;
 }
 
 .show{
   display: block;
   animation: fadeIn 0.3s ease-in forwards;
-
 }
 
 .hidden{
   display: none;
 }
 
+.warCards0{
+  display: none;
+}
+
 
 @keyframes swordSwingRight {
-  from{
-      transform: rotate(315deg);
+  0%{
+      rotate: 315deg;
+      transform: translateX(0);
   }
 
-  50%{
-      transform: rotate(360deg);
-  }
+  100%{
+      rotate: 360deg;
+      transform: translateX(50px);
 
-  to{
-      transform: rotate(0deg);
   }
 }
 
 @keyframes swordSwingLeft {
   from{
-      transform: rotate(315deg);
-  }
+      rotate: 315deg;
+      transform: translateX(0);
 
-  50%{
-      transform: rotate(360deg);
-  }
 
-  100%{
-      transform: rotate(270deg);
+  }
+  to{
+      rotate: 270deg;
+      transform: translateY(-50px);
+
+
   }
 }
 
