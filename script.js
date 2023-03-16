@@ -23,8 +23,9 @@ class Deck {
     return this.cards.length;
   }
   
-  ShuffleAndDealHalf() {
+  shuffleAndDealHalf() {
     const shuffledDeck = this.cards.sort(() => 0.5 - Math.random());
+    // const shuffledDeck = this.cards;
     const deck1Cards = shuffledDeck.slice(0, 26);
     const deck2Cards = shuffledDeck.slice(26);
     this.player1Deck = new Deck();
@@ -59,7 +60,7 @@ class Player {
 class Dealer {
   constructor() {
     this.deck = new Deck();
-    this.deck.ShuffleAndDealHalf();
+    this.deck.shuffleAndDealHalf();
     this.player1 = new Player('Player 1', new Deck());
     this.player2 = new Player('Player 2', new Deck());
     this.player1.deck = this.deck.player1Deck;
@@ -67,8 +68,6 @@ class Dealer {
 
     console.log(this.deck.cards)
     console.log(this.deck.length);
-
-
   }
 
   start() {
@@ -79,17 +78,17 @@ class Dealer {
   }
   displayHands() {
     const player1CardElement = document.getElementById('player1-card');
-    player1CardElement.setAttribute('src', this.player1.currentCard.image);
+    player1CardElement.setAttribute('src', "./images/front_white.png");
     player1CardElement.addEventListener("click", () => {
-      player1CardElement.setAttribute('src', "./images/front_white.png");
+      player1CardElement.setAttribute('src', this.player1.currentCard.image);
     });
     const player1DeckElement = document.getElementById('player1-deck');
     player1DeckElement.textContent = `Cards left: ${this.player1.length + 1}`;
 
     const player2CardElement = document.getElementById('player2-card');
-    player2CardElement.setAttribute('src', this.player2.currentCard.image);
+    player2CardElement.setAttribute('src', "./images/front_black.png");
     player2CardElement.addEventListener("click", () => {
-      player2CardElement.setAttribute('src', "./images/front_black.png");
+      player2CardElement.setAttribute('src', this.player2.currentCard.image);
     });
     const player2DeckElement = document.getElementById('player2-deck');
     player2DeckElement.textContent = `Cards left: ${this.player2.length + 1}`;
@@ -103,7 +102,7 @@ class Dealer {
     for(let i = 0; i < this.player1.deck.cards.length; i++){
       rootContainer1.innerHTML += `
       <div class="container-content" id="cardx${i}">
-      <img class="container-content-img" src="${this.player1.deck.cards[i].image}" alt="">
+      <img class="container-content-img" src="./images/front_white.png" alt="">
       </div>
       ` 
     }
@@ -114,7 +113,7 @@ class Dealer {
       cardx[i].style.transform = "scale(1.02)";
       cardx[i].style.transition = "ease-in-out .2s";
       cardx[i].innerHTML = `
-          <img class="container-content-img" src="images/front_white.png" alt="">
+          <img class="container-content-img" src="${this.player1.deck.cards[i].image}" alt="">
       ` 
       });
     }
@@ -123,7 +122,7 @@ class Dealer {
     for(let i = 0; i < this.player2.deck.cards.length; i++){
       rootContainer2.innerHTML += `
       <div class="container-content" id="card${i}">
-      <img class="container-content-img" src="${this.player2.deck.cards[i].image}" alt="">
+      <img class="container-content-img" src="./images/front_black.png" alt="">
       </div>
       ` 
     }
@@ -134,7 +133,7 @@ class Dealer {
       card[i].style.transform = "scale(1.02)";
       card[i].style.transition = "ease-in-out .2s";
       card[i].innerHTML = `
-          <img class="container-content-img" src="images/front_black.png" alt="">
+          <img class="container-content-img" src="${this.player2.deck.cards[i].image}" alt="">
       ` 
       });
     }
