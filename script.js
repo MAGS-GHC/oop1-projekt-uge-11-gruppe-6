@@ -11,9 +11,24 @@ class Deck {
   constructor() {
     this.cards = [];
     this.suits = ['hearts', 'diamonds', 'clubs', 'spades'];
-    this.ranks = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'jack', 'queen', 'king', 'ace'];
+    this.ranks = [
+      {rank:'2', value: 2}, 
+      {rank: '3', value: 3}, 
+      {rank: '4', value: 4}, 
+      {rank: '5', value: 5}, 
+      {rank: '6', value: 6}, 
+      {rank: '7', value: 7}, 
+      {rank: '8', value: 8},
+      {rank: '9', value: 9},
+      {rank: '10', value: 10}, 
+      {rank: 'jack', value: 11},
+      {rank: 'queen', value: 12},
+      {rank: 'king', value: 13},
+      {rank: 'ace', value: 14}
+    ];
+    console.log(this.ranks.value)
     for (let suit of this.suits) {
-      for (let rank of this.ranks) {
+      for (let rank in this.ranks.rank) {
         let image = `./images/${rank}_of_${suit}.png`;
         this.cards.push(new Card(suit, rank, image));
       }
@@ -67,7 +82,6 @@ class Dealer {
     this.player2.deck = this.deck.player2Deck;
 
     console.log(this.deck.cards)
-    console.log(this.deck.length);
   }
 
   start() {
@@ -212,9 +226,6 @@ class Dealer {
     const warBTN = document.querySelector(".warBTN")
   }
 
-
-
-
   endWar() {
     const warBTN = document.querySelector(".warBTN");
     const player1Write = document.querySelector(".player1-war-cards");
@@ -223,8 +234,6 @@ class Dealer {
     const modalLoader = document.querySelector(".loader-container");
     const warCardContainer = document.querySelector(".war-card-container");
     const winnerTXT = document.querySelector(".winner-text")
-
-
 
     warBTN.addEventListener("click", () => {
       player2Write.innerHTML = "";
@@ -236,8 +245,6 @@ class Dealer {
       warCardContainer.classList.remove("show");
     });
   }
-
-
 
   war() {
 
@@ -253,19 +260,15 @@ class Dealer {
     const player1Cards = [this.player1.currentCard];
     const player2Cards = [this.player2.currentCard];
 
-
     /* Det sidste kort af de trukkede kort */
     let player1LastCard = player1Cards[player1Cards.length - 1].rank;
     let player2LastCard = player2Cards[player2Cards.length - 1].rank;
-
-
 
     // draw 3 cards
     for (let i = 0; i < 3; i++) {
       player1Cards.push(this.player1.deck.dealCard());
       player2Cards.push(this.player2.deck.dealCard());
     }
-
 
     /* Starter en count til antal clicks på kort */
     let cardsClicked = 0
@@ -277,7 +280,6 @@ class Dealer {
       const card1 = player1Cards[i];
       const card2 = player2Cards[i];
 
-    
       /* Opretter nye img elementer for hvert kort */
       const img = document.createElement("img");
       img.classList.add(`warCards${i}`);
@@ -292,7 +294,6 @@ class Dealer {
           this.checkWarResult(player1Cards, player2Cards, card1, card2);
           warBTN.addEventListener("click", () =>{
             this.endWar();
-
           })                  
         }        
       });
@@ -305,7 +306,6 @@ class Dealer {
       img2.setAttribute("src", "images/front_white.png");
       player2Write.appendChild(img2);
     }
-
   }
 }
 const newGame = new Dealer();
