@@ -19,21 +19,13 @@ class Deck {
       }
     }
   }
-  // shuffle() {
-  //   //--Deck does not shuffle, Dealer shuffles etc.--//
-  //   for (let i = this.cards.length - 1; i > 0; i--) {
-  //     const j = Math.floor(Math.random() * (i + 1));
-  //     [this.cards[i], this.cards[j]] = [this.cards[j], this.cards[i]]; // es6 swap
-  //   }
-  // }
+
   get length() {
     return this.cards.length;
   }
   
   ShuffleAndDealHalf() {
     const shuffledDeck = this.cards.sort(() => 0.5 - Math.random());
-    // const half = Math.ceil(this.cards.length / 2);
-    //const half = this.cards.length / 2;
     const deck1Cards = shuffledDeck.slice(0, 26);
     const deck2Cards = shuffledDeck.slice(26);
     this.player1Deck = new Deck();
