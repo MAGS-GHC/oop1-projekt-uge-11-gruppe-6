@@ -146,17 +146,15 @@ body{
   background-color: white;
   margin: 15% auto;
   padding: 20px;
-  border: 1px solid #888;
+  border: 5px solid black;
   width: 80%;
   text-align: center;
+  border-radius: 10rem;
+  background-color: #2e4d3e;
 }
-
 .war-card-container{
   display: none;
 }
-
-
-
 .player1-war-cards{
   display: flex;
   justify-content: space-around;
@@ -165,7 +163,7 @@ body{
 }
 
 .player1-war-cards img{
-  max-width: 25%;
+  max-width: 20%;
   margin: 1%;
 
 }
@@ -177,7 +175,7 @@ body{
 }
 
 .player2-war-cards img{
-  max-width: 25%;
+  max-width: 20%;
   margin: 1%;
 }
 
@@ -188,6 +186,17 @@ body{
   color: #2E3D4D;
 
 
+}
+.warBTN{
+    margin: 5px;
+    padding: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    font-family: 'Paytone One', sans-serif;
+    border-radius: 1rem;
 }
 
 .left-icon{

@@ -76,6 +76,7 @@ class Dealer {
       this.playRound();
     });
   }
+
   displayHands() {
     const player1CardElement = document.getElementById('player1-card');
     player1CardElement.setAttribute('src', "./images/front_white.png");
@@ -93,9 +94,9 @@ class Dealer {
     const player2DeckElement = document.getElementById('player2-deck');
     player2DeckElement.textContent = `Cards left: ${this.player2.length + 1}`;
 
-    this.displayPlayerAllCards()
+    this.displayPlayerAllCards();
   }
-
+  
   displayPlayerAllCards(){
     //PLAYER 1
     let rootContainer1 = document.querySelector(`.root-container1`);   
@@ -142,11 +143,9 @@ class Dealer {
   playRound() {
     document.querySelector(".root-container1").innerHTML = "";
     document.querySelector(".root-container2").innerHTML = "";
-
     this.player1.drawCard();
     this.player2.drawCard();
     this.displayHands();
-
 
     const player1Rank = this.deck.ranks.indexOf(this.player1.currentCard.rank);
     const player2Rank = this.deck.ranks.indexOf(this.player2.currentCard.rank);
@@ -165,15 +164,11 @@ class Dealer {
       this.war();
     }
     if (this.player1.length < 3) {
-      //--AlERT--, ++HTML notification++//
-      alert('Player 2 Wins!');
-            //--reload()--//
-      location.reload();
+      let winnerstatement = document.querySelector(".winnerstatement"); 
+      winnerstatement.innerHTML = "Player 1 wins"
     } else if (this.player2.length < 3) {
-       //--AlERT--, ++HTML notification++//
-      alert('Player 1 Wins!');
-      //--reload()--//
-      location.reload();
+      let winnerstatement = document.querySelector(".winnerstatement"); 
+      winnerstatement.innerHTML = "Player 2 wins"
     }
   }
 
@@ -183,20 +178,15 @@ class Dealer {
     let player1Write = document.querySelector(".player1-war-cards")
     let player2Write = document.querySelector(".player2-war-cards")
 
-
-
-    
     if (player1LastCard.rank > player2LastCard.rank) {
       console.log("player 1 vinder")
       winnerTXT.innerHTML = `<h2 class="war-winner-text">Player 1 vinder</h2>`;
       this.player1.addCards([...player1Cards, ...player2Cards]);
-
     } 
     else if (player2LastCard.rank > player1LastCard.rank) {
       console.log("player 2 vinder")
       winnerTXT.innerHTML = `<h2 class="war-winner-text">Player 2 vinder</h2>`;
       this.player2.addCards([...player1Cards, ...player2Cards]);
-
     } 
     else {
         console.log("tie")
@@ -206,7 +196,6 @@ class Dealer {
         this.war();
     }
   }
-
 
   startWar(){
     const modalContainer = document.querySelector(".modal-container")
