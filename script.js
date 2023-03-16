@@ -19,9 +19,9 @@ class Deck {
       }
     }
   }
-  get length() {
-    return this.cards.length;
-  }
+  // get length() {
+  //   return this.cards.length;
+  // }
   
   shuffleAndDealHalf() {
     const shuffledDeck = this.cards.sort(() => 0.5 - Math.random());
@@ -52,9 +52,6 @@ class Player {
       this.deck.cards.unshift(...cards);
     }
   }
-  get length() {
-    return this.deck.length;
-  }
 }
 
 class Dealer {
@@ -67,40 +64,63 @@ class Dealer {
     this.player2.deck = this.deck.player2Deck;
 
     console.log(this.deck.cards)
+    // console.log(this.player2.deck)
+    // console.log(this.deck.player2Deck)
+    console.log(this.player1)
   }
 
   start() {
-    let buttonStart = document.querySelector('.play-button');
-    buttonStart.addEventListener('click', () => {
+    // let buttonStart = document.querySelector('.play-button');
+    // buttonStart.addEventListener('click', () => {
       this.playRound();
-    });
+    // });
   }
 
   displayHands() {
-    const player1CardElement = document.getElementById('player1-card');
+    let player1CardElement = document.getElementById('player1-card');
     player1CardElement.setAttribute('src', "./images/front_white.png");
+
     player1CardElement.addEventListener("click", () => {
       player1CardElement.setAttribute('src', this.player1.currentCard.image);
+      // {once : true}
+      //let elementClicked = false;
+      // console.log('element clicked');
+      // if (elementClicked) {
+      //   console.log('button has already been clicked before');
+      // }
+      // else{
+      //   elementClicked = true;
+      //   return;
+      // }
+      // setTimeout(() => {
+      //   this.playRound();
+      // }, 3000);
+      // player1CardElement.setAttribute("disabled", "");
+      // player2DeckElement.style.pointerevents = 'none';
+      // document.getElementById('player1-card').diabled = true;
     });
     const player1DeckElement = document.getElementById('player1-deck');
-    player1DeckElement.textContent = `Cards left: ${this.player1.length + 1}`;
+    player1DeckElement.textContent = `Cards left: ${this.player1.deck.cards.length + 1}`;
 
     const player2CardElement = document.getElementById('player2-card');
     player2CardElement.setAttribute('src', "./images/front_black.png");
     player2CardElement.addEventListener("click", () => {
       player2CardElement.setAttribute('src', this.player2.currentCard.image);
+      setTimeout(() => {
+        this.playRound();
+      }, 2000);
     });
     const player2DeckElement = document.getElementById('player2-deck');
-    player2DeckElement.textContent = `Cards left: ${this.player2.length + 1}`;
+    player2DeckElement.textContent = `Cards left: ${this.player2.deck.cards.length + 1}`;
   }
-  
+
   displayPlayerAllCards(){
     //PLAYER 1
     let rootContainer1 = document.querySelector(`.root-container1`);   
     for(let i = 0; i < this.player1.deck.cards.length; i++){
       rootContainer1.innerHTML += `
       <div class="container-content" id="cardx${i}">
-      <img class="container-content-img" src="./images/front_white.png" alt="">
+      <img class="container-content-img" src="${this.player1.deck.cards[i].image}" alt="">
       </div>
       ` 
     }
@@ -111,7 +131,7 @@ class Dealer {
       cardx[i].style.transform = "scale(1.02)";
       cardx[i].style.transition = "ease-in-out .2s";
       cardx[i].innerHTML = `
-          <img class="container-content-img" src="${this.player1.deck.cards[i].image}" alt="">
+          <img class="container-content-img" src="./images/front_white.png" alt="">
       ` 
       });
     }
@@ -120,7 +140,7 @@ class Dealer {
     for(let i = 0; i < this.player2.deck.cards.length; i++){
       rootContainer2.innerHTML += `
       <div class="container-content" id="card${i}">
-      <img class="container-content-img" src="./images/front_black.png" alt="">
+      <img class="container-content-img" src="${this.player2.deck.cards[i].image}" alt="">
       </div>
       ` 
     }
@@ -131,7 +151,7 @@ class Dealer {
       card[i].style.transform = "scale(1.02)";
       card[i].style.transition = "ease-in-out .2s";
       card[i].innerHTML = `
-          <img class="container-content-img" src="${this.player2.deck.cards[i].image}" alt="">
+          <img class="container-content-img" src="./images/front_black.png" alt="">
       ` 
       });
     }
@@ -140,10 +160,10 @@ class Dealer {
   playRound() {
     document.querySelector(".root-container1").innerHTML = "";
     document.querySelector(".root-container2").innerHTML = "";
-    this.displayPlayerAllCards();
     this.player1.drawCard();
     this.player2.drawCard();
     this.displayHands();
+    this.displayPlayerAllCards();
 
     const player1Rank = this.deck.ranks.indexOf(this.player1.currentCard.rank);
     const player2Rank = this.deck.ranks.indexOf(this.player2.currentCard.rank);
@@ -180,11 +200,13 @@ class Dealer {
       console.log("player 1 vinder")
       winnerTXT.innerHTML = `<h2 class="war-winner-text">Player 1 vinder</h2>`;
       this.player1.addCards([...player1Cards, ...player2Cards]);
+      this.displayPlayerAllCards();
     } 
     else if (player2LastCard.rank > player1LastCard.rank) {
       console.log("player 2 vinder")
       winnerTXT.innerHTML = `<h2 class="war-winner-text">Player 2 vinder</h2>`;
       this.player2.addCards([...player1Cards, ...player2Cards]);
+      this.displayPlayerAllCards();
     } 
     else {
         player1Write.innerHTML = "";
@@ -244,8 +266,8 @@ class Dealer {
     const player2Cards = [this.player2.currentCard];
 
     /* Det sidste kort af de trukkede kort */
-    let player1LastCard = player1Cards[player1Cards.length - 1].rank;
-    let player2LastCard = player2Cards[player2Cards.length - 1].rank;
+    // let player1LastCard = player1Cards[player1Cards.length - 1].rank;
+    // let player2LastCard = player2Cards[player2Cards.length - 1].rank;
 
     // draw 3 cards
     for (let i = 0; i < 3; i++) {
@@ -254,7 +276,7 @@ class Dealer {
     }
 
     /* Starter en count til antal clicks på kort */
-    let cardsClicked = 0
+    let cardsClicked = 0;
     /* henter total af kort */
     const totalCards = player1Cards.length;
 
@@ -277,6 +299,7 @@ class Dealer {
           this.checkWarResult(player1Cards, player2Cards, card1, card2);
           warBTN.addEventListener("click", () =>{
             this.endWar();
+            this.playRound();
           })                  
         }        
       });
