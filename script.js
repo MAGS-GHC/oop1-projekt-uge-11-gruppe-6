@@ -218,7 +218,6 @@ class Dealer {
         player2Write.innerHTML = "";
         winnerTXT.innerHTML = `<h2 class="war-winner-text">Det stod lige vi prøver igen</h2>`
         this.war();
-
     }
   }
 
