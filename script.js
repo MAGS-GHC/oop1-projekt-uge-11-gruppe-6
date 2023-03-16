@@ -18,7 +18,6 @@ class Deck {
         this.cards.push(new Card(suit, rank, image));
       }
     }
-    //+Unique cards+//
   }
   // shuffle() {
   //   //--Deck does not shuffle, Dealer shuffles etc.--//
@@ -27,17 +26,16 @@ class Deck {
   //     [this.cards[i], this.cards[j]] = [this.cards[j], this.cards[i]]; // es6 swap
   //   }
   // }
-
-  //+?+//
   get length() {
     return this.cards.length;
   }
   
   ShuffleAndDealHalf() {
     const shuffledDeck = this.cards.sort(() => 0.5 - Math.random());
-    const half = Math.ceil(this.cards.length / 2);
-    const deck1Cards = shuffledDeck.slice(0, half);
-    const deck2Cards = shuffledDeck.slice(half);
+    // const half = Math.ceil(this.cards.length / 2);
+    //const half = this.cards.length / 2;
+    const deck1Cards = shuffledDeck.slice(0, 26);
+    const deck2Cards = shuffledDeck.slice(26);
     this.player1Deck = new Deck();
     this.player2Deck = new Deck();
     this.player1Deck.cards = deck1Cards;
@@ -60,7 +58,6 @@ class Player {
   addCards(cards) {
     this.deck.cards.unshift(...cards);
   }
-  //+?+//
   get length() {
     return this.deck.length;
   }
