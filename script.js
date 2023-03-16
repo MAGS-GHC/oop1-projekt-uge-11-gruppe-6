@@ -179,6 +179,10 @@ class Dealer {
 
   checkWarResult(player1Cards, player2Cards, player1LastCard, player2LastCard) {
     const winnerTXT = document.querySelector(".winner-text");
+    
+    let player1Write = document.querySelector(".player1-war-cards")
+    let player2Write = document.querySelector(".player2-war-cards")
+
 
 
     
@@ -196,9 +200,10 @@ class Dealer {
     } 
     else {
         console.log("tie")
-
+        player1Write.innerHTML = "";
+        player2Write.innerHTML = "";
+        winnerTXT.innerHTML = `<h2 class="war-winner-text">Det stod lige vi prøver igen</h2>`
         this.war();
-
     }
   }
 
