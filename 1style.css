@@ -2,7 +2,6 @@
     transform: rotate(315deg);
     width: 45%;
     animation: swordSwingLeft 3s  forwards;
-    background-color: #2E3D4D;
 
 
 }
@@ -11,7 +10,6 @@
     transform: rotate(315deg);
     width: 45%;
     animation: swordSwingRight 3s  forwards;
-    background-color: #4D2E3D;
 }
 
 @keyframes swordSwingRight {
@@ -52,10 +50,9 @@
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4);
   }
   
-  .war-container {
+  .container {
     display: flex;
     flex-direction: column;
     background-color: white;

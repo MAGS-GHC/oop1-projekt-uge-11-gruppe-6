@@ -19,21 +19,13 @@ class Deck {
       }
     }
   }
-  // shuffle() {
-  //   //--Deck does not shuffle, Dealer shuffles etc.--//
-  //   for (let i = this.cards.length - 1; i > 0; i--) {
-  //     const j = Math.floor(Math.random() * (i + 1));
-  //     [this.cards[i], this.cards[j]] = [this.cards[j], this.cards[i]]; // es6 swap
-  //   }
-  // }
+
   get length() {
     return this.cards.length;
   }
   
   ShuffleAndDealHalf() {
     const shuffledDeck = this.cards.sort(() => 0.5 - Math.random());
-    // const half = Math.ceil(this.cards.length / 2);
-    //const half = this.cards.length / 2;
     const deck1Cards = shuffledDeck.slice(0, 26);
     const deck2Cards = shuffledDeck.slice(26);
     this.player1Deck = new Deck();
@@ -65,6 +57,70 @@ class Player {
   }
 }
 
+
+class Modal {
+  constructor(containerStart, containerEnd, text, swordIcon, winBTN ){
+    this.containerStart = containerStart;
+    this.containerEnd = containerEnd;
+    this.text = text;
+    this.swordIcon = swordIcon;
+    this.winBTN = winBTN;
+
+  }
+
+  writeModal(){
+    const modalWinContainer = document.querySelector(".win-modal-container");
+
+    modalWinContainer.innerHTML = `
+    ${this.containerStart}
+    <div class="icon-container">
+    <img class="left-icon" src=${this.swordIcon}>        
+    <img class="right-icon" src=${this.swordIcon}>
+    </div>
+    
+    <div class="winner-message-container">
+    ${this.text}
+    ${this.winBTN}
+    ${this.containerEnd}  
+    </div>
+    `
+  }
+
+  closeModal(){
+    const modalWinContainer = document.querySelector(".win-modal-container");
+    const winButton = modalWinContainer.querySelector(".winBTN");
+
+    winButton.addEventListener("click", () => {
+      location.reload();      
+    })
+  }
+
+  startModal(){
+    const winModalContainer = document.querySelector(".win-modal-container")
+    const modalLoader = document.querySelector(".icon-container")
+    const modalWinner = document.querySelector(".winner-message-container");
+    
+    winModalContainer.classList.add("show")
+    modalWinner.classList.add("hidden")
+  
+    setTimeout(function() {
+      modalLoader.classList.add("hidden");
+      modalWinner.classList.add("show")
+      modalWinner.classList.remove("hidden")
+    }, 2500);
+  }  
+}
+
+let winModal = new Modal(
+  `<div class="win-container">`,
+  `</div>`,
+  `<h2 class="winnerTXT"></h2>`,
+  "images/sword-icon.svg",
+  `<button class="winBTN">Tag et spil mere</button>`
+)
+
+
+
 class Dealer {
   constructor() {
     this.deck = new Deck();
@@ -77,10 +133,10 @@ class Dealer {
 
     console.log(this.deck.cards)
     console.log(this.deck.length);
-
-
   }
 
+
+  
   start() {
     let buttonStart = document.querySelector('.play-button');
     buttonStart.addEventListener('click', () => {
@@ -179,26 +235,26 @@ class Dealer {
       this.war();
     }
     if (this.player1.length < 3) {
-      //--AlERT--, ++HTML notification++//
-      alert('Player 2 Wins!');
-            //--reload()--//
-      location.reload();
+      winModal.writeModal();
+      winModal.closeModal();
+      winModal.startModal();
+      const winnerTxt = document.querySelector(".winnerTXT")
+      winnerTxt.innerText = "Player 1 vandt"
+        
     } else if (this.player2.length < 3) {
-       //--AlERT--, ++HTML notification++//
-      alert('Player 1 Wins!');
-      //--reload()--//
-      location.reload();
+      winModal.writeModal();
+      winModal.closeModal();
+      winModal.startModal();
+      const winnerTxt = document.querySelector(".winnerTXT")
+      winnerTxt.innerText = "Player 2 vandt"     
     }
   }
 
   checkWarResult(player1Cards, player2Cards, player1LastCard, player2LastCard) {
     const winnerTXT = document.querySelector(".winner-text");
 
-        /* Variable til at skrive data */
-        let player1Write = document.querySelector(".player1-war-cards")
-        let player2Write = document.querySelector(".player2-war-cards")
-
-
+    let player1Write = document.querySelector(".player1-war-cards")
+    let player2Write = document.querySelector(".player2-war-cards")
     
     if (player1LastCard.rank > player2LastCard.rank) {
       console.log("player 1 vinder")
@@ -237,9 +293,6 @@ class Dealer {
     const warBTN = document.querySelector(".warBTN")
   }
 
-
-
-
   endWar() {
     const warBTN = document.querySelector(".warBTN");
     const player1Write = document.querySelector(".player1-war-cards");
@@ -248,8 +301,6 @@ class Dealer {
     const modalLoader = document.querySelector(".loader-container");
     const warCardContainer = document.querySelector(".war-card-container");
     const winnerTXT = document.querySelector(".winner-text")
-
-
 
     warBTN.addEventListener("click", () => {
       player2Write.innerHTML = "";
@@ -262,17 +313,12 @@ class Dealer {
     });
   }
 
-
-
   war() {
 
     const warBTN = document.querySelector(".warBTN");
 
     let player1Write = document.querySelector(".player1-war-cards")
     let player2Write = document.querySelector(".player2-war-cards")
-
-
-
 
     this.startWar()
 
@@ -332,3 +378,6 @@ class Dealer {
 
 const newGame = new Dealer();
 newGame.start();
+
+
+

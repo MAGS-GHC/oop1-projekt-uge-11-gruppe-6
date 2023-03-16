@@ -1,30 +1,66 @@
-class Card {
-    constructor(name, type, rank, img, front) {
-      this.name = name;
-      this.type = type;
-      this.rank = rank;
-      this.img = img;
-      this.front = front;
-    }
+
+
+class Modal {
+  constructor(containerStart, containerEnd, text, swordIcon, winBTN ){
+    this.containerStart = containerStart;
+    this.containerEnd = containerEnd;
+    this.text = text;
+    this.swordIcon = swordIcon;
+    this.winBTN = winBTN;
+
   }
+
+  writeModal(){
+    const modalWinContainer = document.querySelector(".modal-container");
+
+    modalWinContainer.innerHTML = `
+    ${this.containerStart}
+    ${this.text}
+    <div class="icon-container">
+    <img class="left-icon" src=${this.swordIcon}>        
+    <img class="right-icon" src=${this.swordIcon}>
+    </div>
+    ${this.winBTN}
+    ${this.containerEnd}  
+    `
+  }
+
+  closeModal(){
+    const modalWinContainer = document.querySelector(".modal-container");
+    const winButton = modalWinContainer.querySelector(".winBTN");
+
+    winButton.addEventListener("click", () => {
+      location.reload();
+    })
+  }
+
+  startModal(){
+    const modalContainer = document.querySelector(".modal-container")
+    const modalLoader = document.querySelector(".container")
+    const modalWinner = document.querySelector(".winnerTXT");
     
-  class Deck {
-    constructor() {
-      this.cards = [];
-      const types = ["spades", "diamonds", "clubs", "hearts"];
-      const ranks = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "ace"];
+    modalContainer.classList.add("show")
   
-      for (let type of types) {
-        for (let i = 0; i < ranks.length; i++) {
-          let name = ranks[i] + "_of_" + type;
-          let rank = i + 1;
-          let img = name + ".png";
-          let front = true;
-          let card = new Card(name, type, rank, img, front);
-          this.cards.push(card);
-        }
-      }
-    }
+    setTimeout(function() {
+      modalLoader.classList.add("hidden");
+      modalWinner.classList.add("show")
+    }, 4000);
+
+  }
+
+
+  
 }
-let kortSpil = new Deck();
-console.log(kortSpil)
+
+let winModal = new Modal(
+  `<div class="container">`,
+  `</div>`,
+  `<h2 class="winnerTXT"></h2>`,
+  "images/sword-icon.svg",
+  `<button class="winBTN">Tag et spil mere</button>`
+  
+  )
+
+winModal.writeModal();
+winModal.closeModal();
+winModal.startModal();
