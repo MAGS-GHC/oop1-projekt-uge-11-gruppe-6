@@ -57,6 +57,70 @@ class Player {
   }
 }
 
+
+class Modal {
+  constructor(containerStart, containerEnd, text, swordIcon, winBTN ){
+    this.containerStart = containerStart;
+    this.containerEnd = containerEnd;
+    this.text = text;
+    this.swordIcon = swordIcon;
+    this.winBTN = winBTN;
+
+  }
+
+  writeModal(){
+    const modalWinContainer = document.querySelector(".win-modal-container");
+
+    modalWinContainer.innerHTML = `
+    ${this.containerStart}
+    <div class="icon-container">
+    <img class="left-icon" src=${this.swordIcon}>        
+    <img class="right-icon" src=${this.swordIcon}>
+    </div>
+    
+    <div class="winner-message-container">
+    ${this.text}
+    ${this.winBTN}
+    ${this.containerEnd}  
+    </div>
+    `
+  }
+
+  closeModal(){
+    const modalWinContainer = document.querySelector(".win-modal-container");
+    const winButton = modalWinContainer.querySelector(".winBTN");
+
+    winButton.addEventListener("click", () => {
+      location.reload();      
+    })
+  }
+
+  startModal(){
+    const winModalContainer = document.querySelector(".win-modal-container")
+    const modalLoader = document.querySelector(".icon-container")
+    const modalWinner = document.querySelector(".winner-message-container");
+    
+    winModalContainer.classList.add("show")
+    modalWinner.classList.add("hidden")
+  
+    setTimeout(function() {
+      modalLoader.classList.add("hidden");
+      modalWinner.classList.add("show")
+      modalWinner.classList.remove("hidden")
+    }, 2500);
+  }  
+}
+
+let winModal = new Modal(
+  `<div class="win-container">`,
+  `</div>`,
+  `<h2 class="winnerTXT"></h2>`,
+  "images/sword-icon.svg",
+  `<button class="winBTN">Tag et spil mere</button>`
+)
+
+
+
 class Dealer {
   constructor() {
     this.deck = new Deck();
@@ -69,10 +133,10 @@ class Dealer {
 
     console.log(this.deck.cards)
     console.log(this.deck.length);
-
-
   }
 
+
+  
   start() {
     let buttonStart = document.querySelector('.play-button');
     buttonStart.addEventListener('click', () => {
@@ -171,26 +235,26 @@ class Dealer {
       this.war();
     }
     if (this.player1.length < 3) {
-      //--AlERT--, ++HTML notification++//
-      alert('Player 2 Wins!');
-            //--reload()--//
-      location.reload();
+      winModal.writeModal();
+      winModal.closeModal();
+      winModal.startModal();
+      const winnerTxt = document.querySelector(".winnerTXT")
+      winnerTxt.innerText = "Player 1 vandt"
+        
     } else if (this.player2.length < 3) {
-       //--AlERT--, ++HTML notification++//
-      alert('Player 1 Wins!');
-      //--reload()--//
-      location.reload();
+      winModal.writeModal();
+      winModal.closeModal();
+      winModal.startModal();
+      const winnerTxt = document.querySelector(".winnerTXT")
+      winnerTxt.innerText = "Player 2 vandt"     
     }
   }
 
   checkWarResult(player1Cards, player2Cards, player1LastCard, player2LastCard) {
     const winnerTXT = document.querySelector(".winner-text");
 
-        /* Variable til at skrive data */
-        let player1Write = document.querySelector(".player1-war-cards")
-        let player2Write = document.querySelector(".player2-war-cards")
-
-
+    let player1Write = document.querySelector(".player1-war-cards")
+    let player2Write = document.querySelector(".player2-war-cards")
     
     if (player1LastCard.rank > player2LastCard.rank) {
       console.log("player 1 vinder")
@@ -230,9 +294,6 @@ class Dealer {
     const warBTN = document.querySelector(".warBTN")
   }
 
-
-
-
   endWar() {
     const warBTN = document.querySelector(".warBTN");
     const player1Write = document.querySelector(".player1-war-cards");
@@ -253,8 +314,6 @@ class Dealer {
       warCardContainer.classList.remove("show");
   }
 
-
-
   war() {
 
     const warBTN = document.querySelector(".warBTN");
@@ -270,8 +329,6 @@ class Dealer {
     /* De trukkede kort */
     const player1Cards = [this.player1.currentCard];
     const player2Cards = [this.player2.currentCard];
-
-
     /* Det sidste kort af de trukkede kort */
     let player1LastCard = player1Cards[player1Cards.length - 1].rank;
     let player2LastCard = player2Cards[player2Cards.length - 1].rank;
@@ -327,3 +384,6 @@ class Dealer {
 
 const newGame = new Dealer();
 newGame.start();
+
+
+
