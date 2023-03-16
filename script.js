@@ -121,8 +121,6 @@ class Game {
     this.player2.drawCard();
     this.displayGame();
 
-    console.log(this.player1.deck)
-    console.log(this.player2.deck)
 
     const player1Rank = this.deck.ranks.indexOf(this.player1.currentCard.rank);
     const player2Rank = this.deck.ranks.indexOf(this.player2.currentCard.rank);
@@ -153,16 +151,21 @@ class Game {
 
   checkWarResult(player1Cards, player2Cards, player1LastCard, player2LastCard, player1Write, player2Write) {
     const winnerTXT = document.querySelector(".winner-text");
+    
     if (player1LastCard.rank > player2LastCard.rank) {
+      console.log("player 1 vinder")
       winnerTXT.innerHTML = `<h2 class="war-winner-text">Player 1 vinder</h2>`;
       this.player1.addCards([...player1Cards, ...player2Cards]);
-    } else if (player2LastCard.rank > player1LastCard.rank) {
+
+    } 
+    else if (player2LastCard.rank > player1LastCard.rank) {
+      console.log("player 2 vinder")
       winnerTXT.innerHTML = `<h2 class="war-winner-text">Player 2 vinder</h2>`;
       this.player2.addCards([...player1Cards, ...player2Cards]);
-    } else {
 
-        player1Write.innerHTML = "";
-        player2Write.innerHTML = "";
+    } 
+    else {
+        console.log("tie")
 
         this.war();
 

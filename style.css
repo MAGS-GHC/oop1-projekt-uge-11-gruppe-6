@@ -109,6 +109,10 @@ img {
 }
 
 
+.war-card-container img{
+  position: relative;
+}
+
 @keyframes swordSwingRight {
   0%{
       rotate: 315deg;
