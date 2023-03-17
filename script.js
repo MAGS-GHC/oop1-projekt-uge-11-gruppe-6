@@ -58,7 +58,6 @@ class Modal {
     this.text = text;
     this.swordIcon = swordIcon;
     this.winBTN = winBTN;
-
   }
   writeModal(){
     const modalWinContainer = document.querySelector(".win-modal-container");
@@ -111,7 +110,6 @@ let winModal = new Modal(
 class Dealer {
   constructor() {
     this.deck = new Deck();
-    //this.deck.shuffle();
     this.deck.ShuffleAndDealHalf();
     this.player1 = new Player('Player 1', new Deck());
     this.player2 = new Player('Player 2', new Deck());
@@ -122,7 +120,6 @@ class Dealer {
     console.log(this.player1.deck.cards)
     console.log(this.player2.deck.cards)
   }
-
   start() {
     let buttonStart = document.querySelector('.play-button');
     buttonStart.addEventListener('click', () => {
