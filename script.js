@@ -86,6 +86,9 @@ class Modal {
     `
   }
 
+
+
+
   closeModal(){
     const modalWinContainer = document.querySelector(".win-modal-container");
     const winButton = modalWinContainer.querySelector(".winBTN");
