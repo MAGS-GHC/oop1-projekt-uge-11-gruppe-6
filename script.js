@@ -200,13 +200,13 @@ class Dealer {
       console.log("player 1 vinder")
       winnerTXT.innerHTML = `<h2 class="war-winner-text">Player 1 vinder</h2>`;
       this.player1.addCards([...player1Cards, ...player2Cards]);
-      this.displayPlayerAllCards();
+      // this.displayPlayerAllCards();
     } 
     else if (player2LastCard.rank > player1LastCard.rank) {
       console.log("player 2 vinder")
       winnerTXT.innerHTML = `<h2 class="war-winner-text">Player 2 vinder</h2>`;
       this.player2.addCards([...player1Cards, ...player2Cards]);
-      this.displayPlayerAllCards();
+      // this.displayPlayerAllCards();
     } 
     else {
         player1Write.innerHTML = "";
@@ -266,8 +266,8 @@ class Dealer {
     const player2Cards = [this.player2.currentCard];
 
     /* Det sidste kort af de trukkede kort */
-    // let player1LastCard = player1Cards[player1Cards.length - 1].rank;
-    // let player2LastCard = player2Cards[player2Cards.length - 1].rank;
+    let player1LastCard = player1Cards[player1Cards.length - 1].rank;
+    let player2LastCard = player2Cards[player2Cards.length - 1].rank;
 
     // draw 3 cards
     for (let i = 0; i < 3; i++) {
