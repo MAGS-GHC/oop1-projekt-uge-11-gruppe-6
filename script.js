@@ -19,19 +19,16 @@ class Deck {
       }
     }
   }
-
-  get length() {
-    return this.cards.length;
-  }
-  
   ShuffleAndDealHalf() {
     const shuffledDeck = this.cards.sort(() => 0.5 - Math.random());
+    // const shuffledDeck = this.cards;
     const deck1Cards = shuffledDeck.slice(0, 26);
     const deck2Cards = shuffledDeck.slice(26);
     this.player1Deck = new Deck();
     this.player2Deck = new Deck();
     this.player1Deck.cards = deck1Cards;
     this.player2Deck.cards = deck2Cards;
+    //console.log(this.player1Deck.cards)
   }
   dealCard() {
     return this.cards.pop();
@@ -54,7 +51,6 @@ class Player {
   }
 }
 
-
 class Modal {
   constructor(containerStart, containerEnd, text, swordIcon, winBTN ){
     this.containerStart = containerStart;
@@ -64,10 +60,8 @@ class Modal {
     this.winBTN = winBTN;
 
   }
-
   writeModal(){
     const modalWinContainer = document.querySelector(".win-modal-container");
-
     modalWinContainer.innerHTML = `
     ${this.containerStart}
     <div class="icon-container">
@@ -82,7 +76,6 @@ class Modal {
     </div>
     `
   }
-
   closeModal(){
     const modalWinContainer = document.querySelector(".win-modal-container");
     const winButton = modalWinContainer.querySelector(".winBTN");
@@ -91,7 +84,6 @@ class Modal {
       location.reload();      
     })
   }
-
   startModal(){
     const winModalContainer = document.querySelector(".win-modal-container")
     const modalLoader = document.querySelector(".icon-container")
@@ -116,8 +108,6 @@ let winModal = new Modal(
   `<button class="winBTN">Tag et spil mere</button>`
 )
 
-
-
 class Dealer {
   constructor() {
     this.deck = new Deck();
@@ -129,39 +119,35 @@ class Dealer {
     this.player2.deck = this.deck.player2Deck;
 
     console.log(this.deck.cards)
-    console.log(this.deck.length);
+    console.log(this.player1.deck.cards)
+    console.log(this.player2.deck.cards)
   }
 
-
-  
   start() {
-    // let buttonStart = document.querySelector('.play-button');
-    // buttonStart.addEventListener('click', () => {
+    let buttonStart = document.querySelector('.play-button');
+    buttonStart.addEventListener('click', () => {
       this.playRound();
-    // });
+    });
   }
   displayHands() {
     const player1CardElement = document.getElementById('player1-card');
-    player1CardElement.setAttribute('src', this.player1.currentCard.image);
+    player1CardElement.setAttribute('src', "./images/front_white.png");
     player1CardElement.addEventListener("click", () => {
-      player1CardElement.setAttribute('src', "./images/front_white.png");
+      player1CardElement.setAttribute('src', this.player1.currentCard.image);
     });
     let player1DeckElement = document.getElementById('player1-deck');
     player1DeckElement.textContent = `Cards left: ${this.player1.deck.cards.length + 1}`;
 
     const player2CardElement = document.getElementById('player2-card');
-    player2CardElement.setAttribute('src', this.player2.currentCard.image);
+    player2CardElement.setAttribute('src', "./images/front_black.png");
     player2CardElement.addEventListener("click", () => {
-      player2CardElement.setAttribute('src', "./images/front_black.png");
+      player2CardElement.setAttribute('src', this.player2.currentCard.image);
     });
     const player2DeckElement = document.getElementById('player2-deck');
-    player2DeckElement.textContent = `Cards left: ${this.player2.length + 1}`;
-
-    this.displayPlayerAllCards()
+    player2DeckElement.textContent = `Cards left: ${this.player2.deck.cards.length + 1}`;
   }
 
   displayPlayerAllCards(){
-    //PLAYER 1
     let rootContainer1 = document.querySelector(`.root-container1`);   
     for(let i = 0; i < this.player1.deck.cards.length; i++){
       rootContainer1.innerHTML += `
@@ -174,7 +160,6 @@ class Dealer {
       let cardx = []; 
       cardx[i] = document.getElementById(`cardx${i}`);
       cardx[i].addEventListener("click", () => {
-      console.log(`Irriterende for(){addEvL(i, ()=> {});} IDx: ${i}`);
       cardx[i].style.transform = "scale(1.02)";
       cardx[i].style.transition = "ease-in-out .2s";
       cardx[i].innerHTML = `
@@ -182,7 +167,6 @@ class Dealer {
       ` 
       });
     }
-    //PLAYER 2
     let rootContainer2 = document.querySelector(`.root-container2`); 
     for(let i = 0; i < this.player2.deck.cards.length; i++){
       rootContainer2.innerHTML += `
@@ -195,7 +179,6 @@ class Dealer {
       let card = []; 
       card[i] = document.getElementById(`card${i}`);
       card[i].addEventListener("click", () => {
-      console.log(`Irriterende for(){addEvL(i, ()=> {});} ID: ${i}`);
       card[i].style.transform = "scale(1.02)";
       card[i].style.transition = "ease-in-out .2s";
       card[i].innerHTML = `
@@ -214,7 +197,6 @@ class Dealer {
     this.displayHands();
     this.displayPlayerAllCards();
 
-
     const player1Rank = this.deck.ranks.indexOf(this.player1.currentCard.rank);
     const player2Rank = this.deck.ranks.indexOf(this.player2.currentCard.rank);
 
@@ -229,7 +211,6 @@ class Dealer {
         this.player2.currentCard,
       ]);
     } else {
-
       this.war();
     }
     if (this.player1.length < 3) {
@@ -250,23 +231,17 @@ class Dealer {
 
   checkWarResult(player1Cards, player2Cards, player1LastCard, player2LastCard) {
     const winnerTXT = document.querySelector(".winner-text");
-
     let player1Write = document.querySelector(".player1-war-cards")
     let player2Write = document.querySelector(".player2-war-cards")
     
     if (player1LastCard.rank > player2LastCard.rank) {
-      console.log("player 1 vinder")
       winnerTXT.innerHTML = `<h2 class="war-winner-text">Player 1 vinder</h2>`;
       this.player1.addCards([...player1Cards, ...player2Cards]);
     }
-
     else if (player2LastCard.rank > player1LastCard.rank) {
-      console.log("player 2 vinder")
       winnerTXT.innerHTML = `<h2 class="war-winner-text">Player 2 vinder</h2>`;
       this.player2.addCards([...player1Cards, ...player2Cards]);
-
     }
-
     else {
         player1Write.innerHTML = "";
         player2Write.innerHTML = "";
@@ -274,7 +249,6 @@ class Dealer {
         this.war();
     }
   }
-
 
   startWar(){
     const modalContainer = document.querySelector(".modal-container")
@@ -287,7 +261,6 @@ class Dealer {
       modalLoader.classList.add("hidden");
       warCardContainer.classList.add("show")
     }, 4000);
-
     const warBTN = document.querySelector(".warBTN")
   }
 
@@ -300,29 +273,20 @@ class Dealer {
     const warCardContainer = document.querySelector(".war-card-container");
     const winnerTXT = document.querySelector(".winner-text")
 
-
-
-      player2Write.innerHTML = "";
-      player1Write.innerHTML = "";
-      winnerTXT.innerHTML = ""
-
-      modalContainer.classList.remove("show");
-      modalLoader.classList.remove("hidden");
-      warCardContainer.classList.remove("show");
+    player2Write.innerHTML = "";
+    player1Write.innerHTML = "";
+    winnerTXT.innerHTML = ""
+    
+    modalContainer.classList.remove("show");
+    modalLoader.classList.remove("hidden");
+    warCardContainer.classList.remove("show");
   }
 
   war() {
-
     const warBTN = document.querySelector(".warBTN");
-
     let player1Write = document.querySelector(".player1-war-cards")
     let player2Write = document.querySelector(".player2-war-cards")
-
-
-
-
     this.startWar()
-
     /* De trukkede kort */
     const player1Cards = [this.player1.currentCard];
     const player2Cards = [this.player2.currentCard];
@@ -338,17 +302,12 @@ class Dealer {
 
     /* Starter en count til antal clicks på kort */
     let cardsClicked = 0
-
-
     /* henter total af kort */
     const totalCards = player1Cards.length;
-
     /* looper over alle kort */
     for (let i = 0; i < totalCards; i++) {
       const card1 = player1Cards[i];
       const card2 = player2Cards[i];
-
-    
       /* Opretter nye img elementer for hvert kort */
       const img = document.createElement("img");
       img.classList.add(`warCards${i}`);
@@ -364,26 +323,23 @@ class Dealer {
           warBTN.addEventListener("click", () =>{
             this.endWar();
             //this.playRound();
-            let player1DeckElement = document.getElementById('player1-deck');
-            let player2DeckElement = document.getElementById('player2-deck');
+            // let player1DeckElement = document.getElementById('player1-deck');
+            // let player2DeckElement = document.getElementById('player2-deck');
             player1DeckElement.textContent = `Cards left: ${this.player1.deck.cards.length + 1}`;
             player2DeckElement.textContent = `Cards left: ${this.player2.deck.cards.length + 1}`;
+            // this.displayPlayerAllCards();
           })                  
         }        
       });
-    
       player1Write.appendChild(img);
-    
       /* Skriver vores nr 2 kort med bagsiden af kort */
       const img2 = document.createElement("img");
       img2.classList.add(`warCards${i}`);
       img2.setAttribute("src", "images/front_white.png");
       player2Write.appendChild(img2);
     }
-
   }
 }
-
 const newGame = new Dealer();
 newGame.start();
 
