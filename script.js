@@ -19,13 +19,13 @@ class Deck {
       }
     }
   }
-  // get length() {
-  //   return this.cards.length;
-  // }
+
+  get length() {
+    return this.cards.length;
+  }
   
-  shuffleAndDealHalf() {
+  ShuffleAndDealHalf() {
     const shuffledDeck = this.cards.sort(() => 0.5 - Math.random());
-    //const shuffledDeck = this.cards;
     const deck1Cards = shuffledDeck.slice(0, 26);
     const deck2Cards = shuffledDeck.slice(26);
     this.player1Deck = new Deck();
@@ -54,64 +54,110 @@ class Player {
   }
 }
 
+
+class Modal {
+  constructor(containerStart, containerEnd, text, swordIcon, winBTN ){
+    this.containerStart = containerStart;
+    this.containerEnd = containerEnd;
+    this.text = text;
+    this.swordIcon = swordIcon;
+    this.winBTN = winBTN;
+
+  }
+
+  writeModal(){
+    const modalWinContainer = document.querySelector(".win-modal-container");
+
+    modalWinContainer.innerHTML = `
+    ${this.containerStart}
+    <div class="icon-container">
+    <img class="left-icon" src=${this.swordIcon}>        
+    <img class="right-icon" src=${this.swordIcon}>
+    </div>
+    
+    <div class="winner-message-container">
+    ${this.text}
+    ${this.winBTN}
+    ${this.containerEnd}  
+    </div>
+    `
+  }
+
+  closeModal(){
+    const modalWinContainer = document.querySelector(".win-modal-container");
+    const winButton = modalWinContainer.querySelector(".winBTN");
+
+    winButton.addEventListener("click", () => {
+      location.reload();      
+    })
+  }
+
+  startModal(){
+    const winModalContainer = document.querySelector(".win-modal-container")
+    const modalLoader = document.querySelector(".icon-container")
+    const modalWinner = document.querySelector(".winner-message-container");
+    
+    winModalContainer.classList.add("show")
+    modalWinner.classList.add("hidden")
+  
+    setTimeout(function() {
+      modalLoader.classList.add("hidden");
+      modalWinner.classList.add("show")
+      modalWinner.classList.remove("hidden")
+    }, 2500);
+  }  
+}
+
+let winModal = new Modal(
+  `<div class="win-container">`,
+  `</div>`,
+  `<h2 class="winnerTXT"></h2>`,
+  "images/sword-icon.svg",
+  `<button class="winBTN">Tag et spil mere</button>`
+)
+
+
+
 class Dealer {
   constructor() {
     this.deck = new Deck();
-    this.deck.shuffleAndDealHalf();
+    //this.deck.shuffle();
+    this.deck.ShuffleAndDealHalf();
     this.player1 = new Player('Player 1', new Deck());
     this.player2 = new Player('Player 2', new Deck());
     this.player1.deck = this.deck.player1Deck;
     this.player2.deck = this.deck.player2Deck;
 
     console.log(this.deck.cards)
-    // console.log(this.player2.deck)
-    // console.log(this.deck.player2Deck)
-    console.log(this.player1)
+    console.log(this.deck.length);
   }
 
+
+  
   start() {
     // let buttonStart = document.querySelector('.play-button');
     // buttonStart.addEventListener('click', () => {
       this.playRound();
     // });
   }
-
   displayHands() {
-    let player1CardElement = document.getElementById('player1-card');
-    player1CardElement.setAttribute('src', "./images/front_white.png");
-
+    const player1CardElement = document.getElementById('player1-card');
+    player1CardElement.setAttribute('src', this.player1.currentCard.image);
     player1CardElement.addEventListener("click", () => {
-      player1CardElement.setAttribute('src', this.player1.currentCard.image);
-      // {once : true}
-      //let elementClicked = false;
-      // console.log('element clicked');
-      // if (elementClicked) {
-      //   console.log('button has already been clicked before');
-      // }
-      // else{
-      //   elementClicked = true;
-      //   return;
-      // }
-      // setTimeout(() => {
-      //   this.playRound();
-      // }, 3000);
-      // player1CardElement.setAttribute("disabled", "");
-      // player2DeckElement.style.pointerevents = 'none';
-      // document.getElementById('player1-card').diabled = true;
+      player1CardElement.setAttribute('src', "./images/front_white.png");
     });
     let player1DeckElement = document.getElementById('player1-deck');
     player1DeckElement.textContent = `Cards left: ${this.player1.deck.cards.length + 1}`;
 
     const player2CardElement = document.getElementById('player2-card');
-    player2CardElement.setAttribute('src', "./images/front_black.png");
+    player2CardElement.setAttribute('src', this.player2.currentCard.image);
     player2CardElement.addEventListener("click", () => {
-      player2CardElement.setAttribute('src', this.player2.currentCard.image);
-      setTimeout(() => {
-        this.playRound();
-      }, 2000);
+      player2CardElement.setAttribute('src', "./images/front_black.png");
     });
-    let player2DeckElement = document.getElementById('player2-deck');
-    player2DeckElement.textContent = `Cards left: ${this.player2.deck.cards.length + 1}`;
+    const player2DeckElement = document.getElementById('player2-deck');
+    player2DeckElement.textContent = `Cards left: ${this.player2.length + 1}`;
+
+    this.displayPlayerAllCards()
   }
 
   displayPlayerAllCards(){
@@ -128,10 +174,11 @@ class Dealer {
       let cardx = []; 
       cardx[i] = document.getElementById(`cardx${i}`);
       cardx[i].addEventListener("click", () => {
+      console.log(`Irriterende for(){addEvL(i, ()=> {});} IDx: ${i}`);
       cardx[i].style.transform = "scale(1.02)";
       cardx[i].style.transition = "ease-in-out .2s";
       cardx[i].innerHTML = `
-          <img class="container-content-img" src="./images/front_white.png" alt="">
+          <img class="container-content-img" src="images/front_white.png" alt="">
       ` 
       });
     }
@@ -148,10 +195,11 @@ class Dealer {
       let card = []; 
       card[i] = document.getElementById(`card${i}`);
       card[i].addEventListener("click", () => {
+      console.log(`Irriterende for(){addEvL(i, ()=> {});} ID: ${i}`);
       card[i].style.transform = "scale(1.02)";
       card[i].style.transition = "ease-in-out .2s";
       card[i].innerHTML = `
-          <img class="container-content-img" src="./images/front_black.png" alt="">
+          <img class="container-content-img" src="images/front_black.png" alt="">
       ` 
       });
     }
@@ -160,10 +208,12 @@ class Dealer {
   playRound() {
     document.querySelector(".root-container1").innerHTML = "";
     document.querySelector(".root-container2").innerHTML = "";
+
     this.player1.drawCard();
     this.player2.drawCard();
     this.displayHands();
     this.displayPlayerAllCards();
+
 
     const player1Rank = this.deck.ranks.indexOf(this.player1.currentCard.rank);
     const player2Rank = this.deck.ranks.indexOf(this.player2.currentCard.rank);
@@ -179,35 +229,44 @@ class Dealer {
         this.player2.currentCard,
       ]);
     } else {
+
       this.war();
     }
     if (this.player1.length < 3) {
-      let winnerstatement = document.querySelector(".winnerstatement"); 
-      winnerstatement.innerHTML = `<h2 class="war-winner-text">Player 1 vinder</h2>`;
+      winModal.writeModal();
+      winModal.closeModal();
+      winModal.startModal();
+      const winnerTxt = document.querySelector(".winnerTXT")
+      winnerTxt.innerText = "Player 1 vandt"
+        
     } else if (this.player2.length < 3) {
-      let winnerstatement = document.querySelector(".winnerstatement"); 
-      winnerstatement.innerHTML = "Player 2 wins"
+      winModal.writeModal();
+      winModal.closeModal();
+      winModal.startModal();
+      const winnerTxt = document.querySelector(".winnerTXT")
+      winnerTxt.innerText = "Player 2 vandt"     
     }
   }
 
   checkWarResult(player1Cards, player2Cards, player1LastCard, player2LastCard) {
     const winnerTXT = document.querySelector(".winner-text");
-    
+
     let player1Write = document.querySelector(".player1-war-cards")
     let player2Write = document.querySelector(".player2-war-cards")
-
+    
     if (player1LastCard.rank > player2LastCard.rank) {
       console.log("player 1 vinder")
       winnerTXT.innerHTML = `<h2 class="war-winner-text">Player 1 vinder</h2>`;
       this.player1.addCards([...player1Cards, ...player2Cards]);
-      // this.displayPlayerAllCards();
-    } 
+    }
+
     else if (player2LastCard.rank > player1LastCard.rank) {
       console.log("player 2 vinder")
       winnerTXT.innerHTML = `<h2 class="war-winner-text">Player 2 vinder</h2>`;
       this.player2.addCards([...player1Cards, ...player2Cards]);
-      // this.displayPlayerAllCards();
-    } 
+
+    }
+
     else {
         player1Write.innerHTML = "";
         player2Write.innerHTML = "";
@@ -215,6 +274,7 @@ class Dealer {
         this.war();
     }
   }
+
 
   startWar(){
     const modalContainer = document.querySelector(".modal-container")
@@ -240,7 +300,8 @@ class Dealer {
     const warCardContainer = document.querySelector(".war-card-container");
     const winnerTXT = document.querySelector(".winner-text")
 
-    //warBTN.addEventListener("click", () => {
+
+
       player2Write.innerHTML = "";
       player1Write.innerHTML = "";
       winnerTXT.innerHTML = ""
@@ -248,23 +309,23 @@ class Dealer {
       modalContainer.classList.remove("show");
       modalLoader.classList.remove("hidden");
       warCardContainer.classList.remove("show");
-    //});
   }
 
   war() {
 
-    const warBTN = document.querySelector(".warBTN")
+    const warBTN = document.querySelector(".warBTN");
+
+    let player1Write = document.querySelector(".player1-war-cards")
+    let player2Write = document.querySelector(".player2-war-cards")
+
+
+
 
     this.startWar()
-
-    /* Variable til at skrive data */
-    const player1Write = document.querySelector(".player1-war-cards")
-    const player2Write = document.querySelector(".player2-war-cards")
 
     /* De trukkede kort */
     const player1Cards = [this.player1.currentCard];
     const player2Cards = [this.player2.currentCard];
-
     /* Det sidste kort af de trukkede kort */
     let player1LastCard = player1Cards[player1Cards.length - 1].rank;
     let player2LastCard = player2Cards[player2Cards.length - 1].rank;
@@ -276,7 +337,9 @@ class Dealer {
     }
 
     /* Starter en count til antal clicks på kort */
-    let cardsClicked = 0;
+    let cardsClicked = 0
+
+
     /* henter total af kort */
     const totalCards = player1Cards.length;
 
@@ -285,6 +348,7 @@ class Dealer {
       const card1 = player1Cards[i];
       const card2 = player2Cards[i];
 
+    
       /* Opretter nye img elementer for hvert kort */
       const img = document.createElement("img");
       img.classList.add(`warCards${i}`);
@@ -294,7 +358,7 @@ class Dealer {
         img.setAttribute("src", card1.image);
         const img2 = player2Write.querySelectorAll("img")[i];
         img2.setAttribute("src", card2.image);
-        cardsClicked++;
+        cardsClicked++;        
         if (cardsClicked === totalCards-1) {
           this.checkWarResult(player1Cards, player2Cards, card1, card2);
           warBTN.addEventListener("click", () =>{
@@ -316,7 +380,12 @@ class Dealer {
       img2.setAttribute("src", "images/front_white.png");
       player2Write.appendChild(img2);
     }
+
   }
 }
+
 const newGame = new Dealer();
 newGame.start();
+
+
+
